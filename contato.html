@@ -335,7 +335,9 @@
         </div>
     </footer>
 
-    <script>
+    <script type="module">
+        import { supabase } from '/src/supabase.js';
+
         // ===== Custom Popup Feedback =====
         function showPopup({ title, message, type = 'success' }) {
             const overlay = document.createElement('div');
@@ -453,17 +455,9 @@
                     submitButton.disabled = true;
                     submitButton.textContent = 'ENVIANDO...';
 
-                    const response = await fetch('/api/contatos', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(payload)
-                    });
+                    const { error } = await supabase.from('contato').insert([payload]);
 
-                    const result = await response.json();
-
-                    if (response.ok && result.success) {
+                    if (!error) {
                         showPopup({
                             title: 'Sucesso!',
                             message: 'Sua solicitação foi enviada com sucesso! Entraremos em contato em breve.',

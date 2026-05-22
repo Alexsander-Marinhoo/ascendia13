@@ -13,13 +13,5 @@ export default defineConfig({
         "404": resolve(__dirname, '404.html')
       }
     }
-  },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        changeOrigin: true
-      }
-    }
   }
 });

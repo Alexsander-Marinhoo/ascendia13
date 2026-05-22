@@ -349,7 +349,9 @@
         </div>
     </footer>
 
-    <script>
+    <script type="module">
+        import { supabase } from '/src/supabase.js';
+
         // Inicialização do Lenis (Scroll Suave)
         const lenis = new Lenis({
             duration: 1.2,
@@ -514,9 +516,8 @@
             if (sentinel) sentinel.classList.add('opacity-0');
 
             try {
-                const response = await fetch('/api/imoveis');
-                if (!response.ok) throw new Error('Erro na resposta do servidor');
-                let imoveis = await response.json();
+                let { data: imoveis, error } = await supabase.from('imoveis').select('*');
+                if (error) throw error;
 
                 popularFiltros(imoveis);
 

@@ -697,7 +697,9 @@
         </span>
     </div>
 
-    <script>
+    <script type="module">
+        import { supabase } from '/src/supabase.js';
+
         // Inicialização do Lenis (Scroll Suave)
         const lenis = new Lenis({
             duration: 1.2,
@@ -1207,9 +1209,8 @@
             }
 
             try {
-                const response = await fetch(`/api/imoveis/${id}`);
-                if (!response.ok) throw new Error('Imóvel não encontrado');
-                const imovel = await response.json();
+                const { data: imovel, error } = await supabase.from('imoveis').select('*, corretores(*)').eq('id', id).single();
+                if (error) throw error;
 
                 // Título
                 document.getElementById('imovel-titulo').textContent = imovel.titulo || 'Sem título';
@@ -1344,17 +1345,9 @@
                     submitButton.disabled = true;
                     submitButton.textContent = 'ENVIANDO...';
 
-                    const response = await fetch('/api/contatos', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(payload)
-                    });
+                    const { error } = await supabase.from('contato').insert([payload]);
 
-                    const result = await response.json();
-
-                    if (response.ok && result.success) {
+                    if (!error) {
                         showPopup({
                             title: 'Sucesso!',
                             message: 'Sua solicitação foi enviada com sucesso! Um corretor especialista entrará em contato.',
@@ -1362,7 +1355,7 @@
                         });
                         form.reset();
                     } else {
-                        throw new Error(result.error || 'Erro desconhecido');
+                        throw new Error(error.message || 'Erro desconhecido');
                     }
                 } catch (error) {
                     console.error('Erro ao enviar solicitação:', error);

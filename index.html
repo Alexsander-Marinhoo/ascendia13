@@ -533,7 +533,9 @@
         </div>
     </footer>
 
-    <script>
+    <script type="module">
+        import { supabase } from '/src/supabase.js';
+        
         // ===== Custom Popup Feedback =====
         function showPopup({ title, message, type = 'success' }) {
             const overlay = document.createElement('div');
@@ -694,9 +696,8 @@
             const sliderApartamentos = document.getElementById('carousel-aptos');
             const sliderCasas = document.getElementById('carousel-casas');
             try {
-                const response = await fetch('/api/imoveis');
-                if (!response.ok) throw new Error('Erro na resposta do servidor');
-                const imoveis = await response.json();
+                const { data: imoveis, error } = await supabase.from('imoveis').select('*');
+                if (error) throw error;
 
                 const apartamentos = [];
                 const casas = [];
@@ -773,17 +774,9 @@
                     submitButton.disabled = true;
                     submitButton.textContent = 'ENVIANDO...';
 
-                    const response = await fetch('/api/contatos', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(payload)
-                    });
+                    const { error } = await supabase.from('contato').insert([payload]);
 
-                    const result = await response.json();
-
-                    if (response.ok && result.success) {
+                    if (!error) {
                         showPopup({
                             title: 'Sucesso!',
                             message: 'Sua solicitação foi enviada com sucesso! Retornaremos em breve.',
