@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link rel="icon" type="image/x-icon" href="./imgs/favicon.ico" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;700&amp;family=Inter:wght@300;400;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#c4c9ae",
+                        "primary-fixed-dim": "#d2d7bb",
+                        "on-secondary-container": "#daba94",
+                        "tertiary-container": "#edebe6",
+                        "primary-container": "#444934",
+                        "tertiary-fixed-dim": "#e7e5e0",
+                        "inverse-on-surface": "#565555",
+                        "on-error-container": "#ff9993",
+                        "primary-fixed": "#e1e5c9",
+                        "surface-container-low": "#131313",
+                        "primary-dim": "#b7bba1",
+                        "error-container": "#7f2927",
+                        "on-surface": "#e7e5e5",
+                        "surface-dim": "#0e0e0e",
+                        "secondary-dim": "#b79975",
+                        "surface-container-highest": "#252626",
+                        "tertiary": "#fbf9f4",
+                        "secondary-fixed": "#ffddb6",
+                        "surface-bright": "#2b2c2c",
+                        "primary": "#c4c9ae",
+                        "on-secondary-fixed": "#513b1e",
+                        "surface-container-lowest": "#000000",
+                        "error": "#ee7d77",
+                        "outline": "#767575",
+                        "on-secondary-fixed-variant": "#705738",
+                        "surface-variant": "#252626",
+                        "background": "#0e0e0e",
+                        "on-tertiary-container": "#575753",
+                        "surface-container": "#191a1a",
+                        "outline-variant": "#484848",
+                        "secondary-container": "#4d371b",
+                        "surface-container-high": "#1f2020",
+                        "on-secondary": "#2e1c04",
+                        "on-tertiary": "#5f5f5b",
+                        "on-error": "#490106",
+                        "inverse-primary": "#5c614b",
+                        "on-primary-container": "#ced3b7",
+                        "on-primary": "#3d422e",
+                        "on-tertiary-fixed-variant": "#666662",
+                        "on-background": "#e7e5e5",
+                        "secondary": "#b79975",
+                        "surface": "#0e0e0e",
+                        "secondary-fixed-dim": "#f1cfa8",
+                        "tertiary-dim": "#edebe6",
+                        "tertiary-fixed": "#f6f3ee",
+                        "on-primary-fixed-variant": "#595e48",
+                        "on-tertiary-fixed": "#4a4a46",
+                        "on-primary-fixed": "#3d412d",
+                        "error-dim": "#bb5551",
+                        "inverse-surface": "#fcf9f8",
+                        "on-surface-variant": "#acabaa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }</script>
+    <style>
+        body {
+            background-color: #0e0e0e;
+            color: #e5e2e1;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .kerning-loose {
+            letter-spacing: 0.2em;
+        }
+
+        .kerning-tight {
+            letter-spacing: -0.05em;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-primary selection:text-on-primary">
+    <!-- TopNavBar -->
+    <!-- Main Content Canvas -->
+    <main class="h-[100vh] flex-grow flex flex-col md:flex-row relative overflow-hidden">
+        <!-- Background Imagery (Asymmetric Editorial Layout) -->
+        <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+            <div class="absolute right-0 top-0 w-1/2 h-full bg-cover bg-center grayscale"
+                data-alt="monochrome architectural photography of a brutalist concrete edge meeting a clear dark sky with sharp shadows and minimalist lines"
+                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDPddU2157aZsTjo0uJ5CoC1gUTYBB4up9JbJisugBs90gqd1b6X2t9cHRicdcu4OgzyTJYgw99D_PEb_vM2v-T_5-p83F-MT4HP6oM07itmSDtYGurHK-ywuqURoNgDK192ZEWDcc_OM_4jZs7iQGII3MRULee8TZnazATd6LZRQLrGZa_U10GXojJueTCzGMI4tJrDUnxy0LEHUCY97T8rJabGEi2HeSPTmMtpwZE2hOh9DtmUFPWG5bisiI_33MxPfSGs8k8-IQ')">
+            </div>
+        </div>
+        <!-- 404 Hero Section -->
+        <section class="relative z-10 w-full flex flex-col items-center justify-center text-center px-6 pt-32 pb-12">
+            <div class="max-w-4xl">
+                <span class="block font-label text-xs uppercase tracking-[0.3em] text-primary mb-4">Erro do
+                    Sistema</span>
+                <h1
+                    class="font-body font-black text-[12rem] md:text-[20rem] leading-none text-surface-container-highest opacity-30 select-none kerning-tight">
+                    404
+                </h1>
+                <div class="mt-[-4rem] md:mt-[-8rem]">
+                    <h2 class="font-headline text-3xl md:text-5xl text-on-surface mb-6 font-light italic">
+                        Página não encontrada.
+                    </h2>
+                    <p
+                        class="font-body text-on-surface-variant text-lg md:text-xl max-w-lg mx-auto mb-12 font-light leading-relaxed">
+                        O horizonte que você procura não está aqui. Ele pode ter sido movido para um novo terreno ou
+                        nunca existiu nesta planta.
+                    </p>
+                    <a class="inline-flex items-center justify-center bg-primary text-on-primary font-body px-10 py-4 rounded-full text-sm uppercase tracking-widest hover:bg-primary-container transition-all duration-500 group"
+                        href="/">
+                        <span class="mr-2">Voltar ao Início</span>
+                        <span
+                            class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- Sidebar Accent (Optional Editorial Feel) -->
+        <aside
+            class="hidden lg:flex w-24 border-l border-outline-variant/20 flex-col items-center justify-center py-12 space-y-12">
+            <span
+                class="rotate-90 whitespace-nowrap font-label text-[10px] tracking-[0.5em] text-outline uppercase">ASCENDIA
+                13@.</span>
+            <div class="w-[1px] h-32 bg-outline-variant/30"></div>
+            <span
+                class="rotate-90 whitespace-nowrap font-label text-[10px] tracking-[0.5em] text-outline uppercase">Praia
+                Grande</span>
+        </aside>
+    </main>
+</body>
+
+</html>

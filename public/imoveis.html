@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ASCENDIA 13@. | Sua Imobiliária na Praia Grande</title>
+    <link rel="icon" type="image/x-icon" href="./imgs/favicon.ico" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Lenis para scroll suave -->
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "screens": {
+                        "desktop-nav": "1001px"
+                    },
+                    "colors": {
+                        "surface-tint": "#c4c9ae",
+                        "primary-fixed-dim": "#d2d7bb",
+                        "on-secondary-container": "#daba94",
+                        "tertiary-container": "#edebe6",
+                        "primary-container": "#444934",
+                        "tertiary-fixed-dim": "#e7e5e0",
+                        "inverse-on-surface": "#565555",
+                        "on-error-container": "#ff9993",
+                        "primary-fixed": "#e1e5c9",
+                        "surface-container-low": "#131313",
+                        "primary-dim": "#b7bba1",
+                        "error-container": "#7f2927",
+                        "on-surface": "#e7e5e5",
+                        "surface-dim": "#0e0e0e",
+                        "secondary-dim": "#b79975",
+                        "surface-container-highest": "#252626",
+                        "tertiary": "#fbf9f4",
+                        "secondary-fixed": "#ffddb6",
+                        "surface-bright": "#2b2c2c",
+                        "primary": "#c4c9ae",
+                        "on-secondary-fixed": "#513b1e",
+                        "surface-container-lowest": "#000000",
+                        "error": "#ee7d77",
+                        "outline": "#767575",
+                        "on-secondary-fixed-variant": "#705738",
+                        "surface-variant": "#252626",
+                        "background": "#0e0e0e",
+                        "on-tertiary-container": "#575753",
+                        "surface-container": "#191a1a",
+                        "outline-variant": "#484848",
+                        "secondary-container": "#4d371b",
+                        "surface-container-high": "#1f2020",
+                        "on-secondary": "#2e1c04",
+                        "on-tertiary": "#5f5f5b",
+                        "on-error": "#490106",
+                        "inverse-primary": "#5c614b",
+                        "on-primary-container": "#ced3b7",
+                        "on-primary": "#3d422e",
+                        "on-tertiary-fixed-variant": "#666662",
+                        "on-background": "#e7e5e5",
+                        "secondary": "#b79975",
+                        "surface": "#0e0e0e",
+                        "secondary-fixed-dim": "#f1cfa8",
+                        "tertiary-dim": "#edebe6",
+                        "tertiary-fixed": "#f6f3ee",
+                        "on-primary-fixed-variant": "#595e48",
+                        "on-tertiary-fixed": "#4a4a46",
+                        "on-primary-fixed": "#3d412d",
+                        "error-dim": "#bb5551",
+                        "inverse-surface": "#fcf9f8",
+                        "on-surface-variant": "#acabaa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1.5rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "serif": ["Georgia", "serif"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Estilos do Lenis para scroll suave */
+        html.lenis,
+        html.lenis body {
+            height: auto;
+        }
+
+        .lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+
+        .lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis-stopped {
+            overflow: hidden;
+        }
+
+        .lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            background-color: #0e0e0e;
+            color: #e7e5e5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .architectural-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+        }
+
+        .inter-tight {
+            letter-spacing: -0.04em;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .carousel-container {
+            scroll-behavior: smooth;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .spinner {
+            border: 3px solid rgba(196, 201, 174, 0.1);
+            border-radius: 50%;
+            border-top: 3px solid #c4c9ae;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body class="font-body">
+    <!-- TopNavBar -->
+    <nav
+        class="fixed top-0 w-full z-50 bg-transparent backdrop-blur-xl dark:bg-[#0e0e0e]/60 border-b border-[#767575]/15 flex justify-between items-center px-6 md:px-12 py-6 w-full">
+        <div class="text-xl font-extrabold tracking-tighter text-[#c4c9ae] font-headline uppercase">ASCENDIA 13@.</div>
+        </div>
+        <!-- Desktop Links -->
+        <div class="hidden desktop-nav:flex space-x-12">
+            <a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-300 font-body tracking-tight text-xs uppercase"
+                href="index.html">Início</a>
+            <a class="text-[#c4c9ae] border-b border-[#c4c9ae] pb-1 font-body tracking-tight text-xs uppercase font-semibold"
+                href="imoveis.html">Imóveis</a>
+            <a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-300 font-body tracking-tight text-xs uppercase"
+                href="sobre-nos.html">Sobre Nós</a>
+            <a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-300 font-body tracking-tight text-xs uppercase"
+                href="contato.html">Contato</a>
+        </div>
+        <!-- Desktop CTA -->
+        <button
+            class="hidden desktop-nav:block bg-primary text-on-primary px-8 py-2 font-label text-xs tracking-widest uppercase hover:opacity-80 transition-opacity font-bold rounded-full">Falar
+            com Imobiliária</button>
+        <!-- Mobile Hamburger Menu Button -->
+        <button class="desktop-nav:hidden flex items-center justify-center text-primary p-2" id="hamburger-btn">
+            <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+    </nav>
+    <!-- Mobile Menu Overlay -->
+    <div class="fixed inset-0 z-[60] bg-background/95 backdrop-blur-2xl opacity-0 invisible flex flex-col items-center justify-center"
+        id="mobile-menu-overlay">
+        <button class="absolute top-6 right-6 text-primary p-2" id="close-menu-btn">
+            <span class="material-symbols-outlined text-4xl">close</span>
+        </button>
+        <div class="flex flex-col items-center space-y-8 transform translate-y-10" id="mobile-menu-content">
+            <div class="text-[#c4c9ae] font-headline text-2xl font-extrabold tracking-tighter uppercase mb-8">ASCENDIA
+                13@.</div>
+            <a class="text-on-surface text-xl uppercase tracking-widest font-headline font-bold hover:text-primary transition-colors"
+                href="index.html" onclick="toggleMenu()">Início</a>
+            <a class="text-primary text-xl uppercase tracking-widest font-headline font-bold border-b-2 border-primary"
+                href="imoveis.html" onclick="toggleMenu()">Imóveis</a>
+            <a class="text-on-surface text-xl uppercase tracking-widest font-headline font-bold hover:text-primary transition-colors"
+                href="sobre-nos.html" onclick="toggleMenu()">Sobre Nós</a>
+            <a class="text-on-surface text-xl uppercase tracking-widest font-headline font-bold hover:text-primary transition-colors"
+                href="contato.html" onclick="toggleMenu()">Contato</a>
+            <button
+                class="mt-8 bg-primary text-on-primary px-10 py-4 font-label text-sm tracking-[0.2em] uppercase font-bold rounded-full shadow-xl"
+                onclick="toggleMenu()">Falar com Imobiliária</button>
+        </div>
+    </div>
+    <script>
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuContent = document.getElementById('mobile-menu-content');
+
+        function toggleMenu() {
+            const isOpen = !mobileMenuOverlay.classList.contains('invisible');
+            if (isOpen) {
+                mobileMenuOverlay.classList.add('opacity-0', 'invisible');
+                mobileMenuContent.classList.add('translate-y-10');
+                document.body.style.overflow = '';
+            } else {
+                mobileMenuOverlay.classList.remove('opacity-0', 'invisible');
+                mobileMenuContent.classList.remove('translate-y-10');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        hamburgerBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+    </script>
+
+    <main class="pt-32 pb-40 min-h-screen">
+        <!-- Editorial Header -->
+        <section class="px-8 md:px-24 mb-16">
+            <span class="font-label text-primary text-[10px] tracking-[0.4em] uppercase mb-4 block">Seleção
+                Exclusiva</span>
+            <h1
+                class="font-headline text-6xl md:text-9xl font-bold text-on-surface tracking-[-0.03em] uppercase leading-none">
+                PORTFÓLIO
+            </h1>
+        </section>
+        <!-- Search & Filters -->
+        <section class="px-8 md:px-24 mb-24">
+            <div class="flex flex-col md:flex-row gap-12 items-end">
+                <div class="relative w-full md:w-1/4 group">
+                    <label class="font-label text-[10px] text-outline tracking-widest uppercase mb-2 block"
+                        for="filtro-tipo">Tipo</label>
+                    <select id="filtro-tipo"
+                        class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary px-0 py-2 text-on-surface text-sm transition-colors cursor-pointer appearance-none">
+                    </select>
+                </div>
+                <div class="relative w-full md:w-1/4 group">
+                    <label class="font-label text-[10px] text-outline tracking-widest uppercase mb-2 block"
+                        for="filtro-localizacao">Localização</label>
+                    <select id="filtro-localizacao"
+                        class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary px-0 py-2 text-on-surface text-sm transition-colors cursor-pointer appearance-none">
+                    </select>
+                </div>
+                <div class="relative w-full md:w-1/4 group">
+                    <label class="font-label text-[10px] text-outline tracking-widest uppercase mb-2 block"
+                        for="filtro-situacao">Situação</label>
+                    <select id="filtro-situacao"
+                        class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary px-0 py-2 text-on-surface text-sm transition-colors cursor-pointer appearance-none">
+                    </select>
+                </div>
+                <button id="btn-buscar"
+                    class="bg-primary rounded-full text-on-primary px-10 py-4 font-label text-xs tracking-widest uppercase hover:opacity-90 transition-opacity">
+                    Buscar
+                </button>
+            </div>
+        </section>
+        <!-- Property Grid - Updated to 3 columns and more compact cards -->
+        <section class="px-8 md:px-24">
+            <div id="imoveis-grid" class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-x-4 md:gap-x-8 gap-y-12 md:gap-y-20">
+                <!-- Cards serão renderizados via JS -->
+            </div>
+        </section>
+        <!-- Pagination / Load More -->
+        <section id="load-more-sentinel" class="py-32 flex justify-center opacity-0 transition-opacity">
+            <button class="group flex flex-col items-center gap-4 pointer-events-none">
+                <span
+                    class="font-label text-[10px] tracking-[0.5em] uppercase text-outline group-hover:text-primary transition-colors">Carregando
+                    Mais Projetos</span>
+                <div class="w-px h-16 bg-outline-variant/30 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 w-full h-full bg-primary -translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                    </div>
+                </div>
+            </button>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer
+        class="bg-[#000000] dark:bg-[#000000] w-full border-t border-[#767575]/10 grid grid-cols-1 md:grid-cols-4 gap-12 px-6 md:px-12 py-24 max-w-full">
+        <div class="col-span-1 md:col-span-2">
+            <div class="text-[#c4c9ae] font-headline text-lg mb-8 uppercase tracking-tighter font-extrabold">
+                ASCENDIA 13@.</div>
+            <p class="text-[#767575] font-body leading-relaxed text-[10px] tracking-[0.2em] uppercase max-w-sm">
+                © 2026 Ascendia Curator
+            </p>
+        </div>
+        <div>
+            <h4 class="text-[#c4c9ae] font-label text-[10px] tracking-[0.2em] uppercase mb-6 font-bold">
+                Explorar</h4>
+            <ul class="space-y-4 font-body text-[10px] tracking-[0.2em] uppercase">
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="index.html">Home</a></li>
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="imoveis.html">Imóveis</a></li>
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="sobre-nos.html">Sobre Nós</a></li>
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="contato.html">Contato</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-[#c4c9ae] font-label text-[10px] tracking-[0.2em] uppercase mb-6 font-bold">
+                Redes Sociais</h4>
+            <ul class="space-y-4 font-body text-[10px] tracking-[0.2em] uppercase">
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="https://wa.me/5599999999" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        // Inicialização do Lenis (Scroll Suave)
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        let isFiltersPopulated = false;
+
+        function popularFiltros(imoveis) {
+            if (isFiltersPopulated) return;
+
+            const tipos = [...new Set(imoveis.map(i => (i.tipo || '').trim()).filter(Boolean))].sort();
+            const bairros = [...new Set(imoveis.map(i => (i.bairro || '').trim()).filter(Boolean))].sort();
+            const situacoes = [...new Set(imoveis.map(i => (i.status || '').trim()).filter(Boolean))].sort();
+
+            const selectTipo = document.getElementById('filtro-tipo');
+            const selectBairro = document.getElementById('filtro-localizacao');
+            const selectSituacao = document.getElementById('filtro-situacao');
+
+            const currentTipo = selectTipo.value;
+            const currentBairro = selectBairro.value;
+            const currentSituacao = selectSituacao.value;
+
+            selectTipo.innerHTML = '<option value="" class="bg-surface-container-low text-on-surface">Todos os Tipos</option>' +
+                tipos.map(t => `<option value="${t}" class="bg-surface-container-low text-on-surface">${t}</option>`).join('');
+
+            selectBairro.innerHTML = '<option value="" class="bg-surface-container-low text-on-surface">Qualquer Localização</option>' +
+                bairros.map(b => `<option value="${b}" class="bg-surface-container-low text-on-surface">${b}</option>`).join('');
+
+            selectSituacao.innerHTML = '<option value="" class="bg-surface-container-low text-on-surface">Qualquer Situação</option>' +
+                situacoes.map(s => `<option value="${s}" class="bg-surface-container-low text-on-surface">${s}</option>`).join('');
+
+            if (currentTipo) selectTipo.value = currentTipo;
+            if (currentBairro) selectBairro.value = currentBairro;
+            if (currentSituacao) selectSituacao.value = currentSituacao;
+
+            isFiltersPopulated = true;
+        }
+
+        let allFilteredImoveis = [];
+        let currentPage = 1;
+        const itemsPerPage = 9;
+
+        const cardObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationName = 'fadeUp';
+                    entry.target.style.animationDuration = '0.6s';
+                    entry.target.style.animationTimingFunction = 'ease-out';
+                    entry.target.style.animationFillMode = 'forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const loadMoreObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && allFilteredImoveis.length > currentPage * itemsPerPage) {
+                currentPage++;
+                renderNextPage();
+            }
+        }, { rootMargin: '100px' });
+
+        function createImovelCard(imovel, index) {
+            const fotoUrl = (imovel.fotos && imovel.fotos.length > 0)
+                ? imovel.fotos[0]
+                : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80';
+
+            const suitesStr = imovel.suites ? `${String(imovel.suites).padStart(2, '0')} ${imovel.suites === 1 ? 'Suíte' : 'Suítes'}` : '';
+            const areaStr = imovel.area_total ? `${imovel.area_total}m²` : '';
+            const vagasStr = imovel.vagas ? `${imovel.vagas} ${imovel.vagas === 1 ? 'Vaga' : 'Vagas'}` : '';
+
+            const specsHTML = [areaStr, suitesStr, vagasStr]
+                .filter(Boolean)
+                .map(s => `<span>${s}</span>`)
+                .join('<span class="w-1 h-1 bg-primary/40 rounded-full"></span>');
+
+            const statusBadge = imovel.status ? `
+                <div class="absolute top-2 right-2 md:top-4 md:right-4">
+                    <span class="bg-background/60 backdrop-blur-md px-2 py-1 md:px-3 md:py-1.5 text-on-surface text-[8px] md:text-[9px] tracking-widest uppercase rounded-full border border-outline/15">${imovel.status}</span>
+                </div>
+            ` : '';
+
+            const delay = (index % itemsPerPage) * 0.1;
+
+            return `
+                <a href="sobre-imovel.html?id=${imovel.id}" class="flex flex-col group cursor-pointer block opacity-0" style="animation-delay: ${delay}s;">
+                    <div class="relative overflow-hidden aspect-[4/5] mb-3 md:mb-6 rounded-lg border border-outline/10">
+                        <img alt="${imovel.titulo}"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            src="${fotoUrl}" />
+                        ${statusBadge}
+                    </div>
+                    <div>
+                        <h3 class="font-headline text-sm md:text-lg mb-1 md:mb-2 text-on-surface group-hover:text-primary transition-colors uppercase tracking-tight line-clamp-2">
+                            ${imovel.titulo}</h3>
+                        <div class="flex justify-between items-center w-full">
+                            <p class="font-label text-[8px] md:text-[9px] text-outline tracking-[0.15em] uppercase flex items-center gap-1.5 md:gap-2 flex-wrap font-bold">
+                                ${specsHTML}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            `;
+        }
+
+        function renderNextPage() {
+            const grid = document.getElementById('imoveis-grid');
+            const sentinel = document.getElementById('load-more-sentinel');
+
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = currentPage * itemsPerPage;
+            const toRender = allFilteredImoveis.slice(start, end);
+
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = toRender.map((i, idx) => createImovelCard(i, start + idx)).join('');
+
+            const newCards = Array.from(tempDiv.children);
+            newCards.forEach(card => {
+                grid.appendChild(card);
+                cardObserver.observe(card);
+            });
+
+            if (end >= allFilteredImoveis.length) {
+                sentinel.innerHTML = '<p class="font-label text-[10px] tracking-[0.5em] uppercase text-outline text-center w-full">Fim dos resultados</p>';
+                sentinel.classList.remove('opacity-0');
+                sentinel.classList.remove('pointer-events-none');
+            } else {
+                sentinel.innerHTML = `
+                    <button class="group flex flex-col items-center gap-4 pointer-events-none">
+                        <span class="font-label text-[10px] tracking-[0.5em] uppercase text-outline group-hover:text-primary transition-colors">Carregando Mais Projetos</span>
+                        <div class="w-px h-16 bg-outline-variant/30 relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-full bg-primary -translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                            </div>
+                        </div>
+                    </button>
+                `;
+                sentinel.classList.remove('opacity-0');
+                sentinel.classList.remove('pointer-events-none');
+            }
+        }
+
+        async function carregarImoveis(filtros = {}) {
+            const grid = document.getElementById('imoveis-grid');
+            const sentinel = document.getElementById('load-more-sentinel');
+            if (!grid) return;
+
+            grid.innerHTML = '<div class="col-span-full py-20 flex flex-col items-center justify-center gap-4"><div class="spinner"></div><div class="text-outline uppercase tracking-widest text-sm">Buscando imóveis...</div></div>';
+            if (sentinel) sentinel.classList.add('opacity-0');
+
+            try {
+                const response = await fetch('/api/imoveis');
+                if (!response.ok) throw new Error('Erro na resposta do servidor');
+                let imoveis = await response.json();
+
+                popularFiltros(imoveis);
+
+                if (filtros.tipo) {
+                    imoveis = imoveis.filter(i => (i.tipo || '').toLowerCase() === filtros.tipo.toLowerCase());
+                }
+                if (filtros.localizacao) {
+                    imoveis = imoveis.filter(i => (i.bairro || '').toLowerCase() === filtros.localizacao.toLowerCase());
+                }
+                if (filtros.situacao) {
+                    imoveis = imoveis.filter(i => (i.status || '').toLowerCase() === filtros.situacao.toLowerCase());
+                }
+
+                allFilteredImoveis = imoveis;
+                currentPage = 1;
+                grid.innerHTML = '';
+
+                if (imoveis.length === 0) {
+                    grid.innerHTML = '<div class="col-span-full text-center py-20 text-outline uppercase tracking-widest text-sm">Nenhum imóvel encontrado com esses filtros.</div>';
+                    return;
+                }
+
+                renderNextPage();
+
+            } catch (error) {
+                console.error('Erro ao carregar imóveis:', error);
+                grid.innerHTML = '<div class="col-span-full text-center py-20 text-error uppercase tracking-widest text-sm">Erro ao carregar imóveis. Tente novamente mais tarde.</div>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const sentinel = document.getElementById('load-more-sentinel');
+            if (sentinel) loadMoreObserver.observe(sentinel);
+
+            carregarImoveis();
+
+            const btnBuscar = document.getElementById('btn-buscar');
+            if (btnBuscar) {
+                btnBuscar.addEventListener('click', () => {
+                    const tipo = document.getElementById('filtro-tipo').value;
+                    const localizacao = document.getElementById('filtro-localizacao').value;
+                    const situacao = document.getElementById('filtro-situacao').value;
+
+                    carregarImoveis({ tipo, localizacao, situacao });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

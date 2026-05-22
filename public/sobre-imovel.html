@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link rel="icon" type="image/x-icon" href="./imgs/favicon.ico" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Lenis para scroll suave -->
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "screens": {
+                        "desktop-nav": "1001px"
+                    },
+                    "colors": {
+                        "surface-tint": "#c4c9ae",
+                        "primary-fixed-dim": "#d2d7bb",
+                        "on-secondary-container": "#daba94",
+                        "tertiary-container": "#edebe6",
+                        "primary-container": "#444934",
+                        "tertiary-fixed-dim": "#e7e5e0",
+                        "inverse-on-surface": "#565555",
+                        "on-error-container": "#ff9993",
+                        "primary-fixed": "#e1e5c9",
+                        "surface-container-low": "#131313",
+                        "primary-dim": "#b7bba1",
+                        "error-container": "#7f2927",
+                        "on-surface": "#e7e5e5",
+                        "surface-dim": "#0e0e0e",
+                        "secondary-dim": "#b79975",
+                        "surface-container-highest": "#252626",
+                        "tertiary": "#fbf9f4",
+                        "secondary-fixed": "#ffddb6",
+                        "surface-bright": "#2b2c2c",
+                        "primary": "#c4c9ae",
+                        "on-secondary-fixed": "#513b1e",
+                        "surface-container-lowest": "#000000",
+                        "error": "#ee7d77",
+                        "outline": "#767575",
+                        "on-secondary-fixed-variant": "#705738",
+                        "surface-variant": "#252626",
+                        "background": "#0e0e0e",
+                        "on-tertiary-container": "#575753",
+                        "surface-container": "#191a1a",
+                        "outline-variant": "#484848",
+                        "secondary-container": "#4d371b",
+                        "surface-container-high": "#1f2020",
+                        "on-secondary": "#2e1c04",
+                        "on-tertiary": "#5f5f5b",
+                        "on-error": "#490106",
+                        "inverse-primary": "#5c614b",
+                        "on-primary-container": "#ced3b7",
+                        "on-primary": "#3d422e",
+                        "on-tertiary-fixed-variant": "#666662",
+                        "on-background": "#e7e5e5",
+                        "secondary": "#b79975",
+                        "surface": "#0e0e0e",
+                        "secondary-fixed-dim": "#f1cfa8",
+                        "tertiary-dim": "#edebe6",
+                        "tertiary-fixed": "#f6f3ee",
+                        "on-primary-fixed-variant": "#595e48",
+                        "on-tertiary-fixed": "#4a4a46",
+                        "on-primary-fixed": "#3d412d",
+                        "error-dim": "#bb5551",
+                        "inverse-surface": "#fcf9f8",
+                        "on-surface-variant": "#acabaa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1.5rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Estilos do Lenis para scroll suave */
+        html.lenis,
+        html.lenis body {
+            height: auto;
+        }
+
+        .lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+
+        .lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis-stopped {
+            overflow: hidden;
+        }
+
+        .lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        body {
+            background-color: #0e0e0e;
+            color: #e7e5e5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== Image Gallery Styles ===== */
+        .gallery-scroll {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .gallery-item {
+            transition: filter 1s ease, transform 0.6s ease;
+        }
+
+        .gallery-item:hover {
+            filter: grayscale(0%) !important;
+        }
+
+        /* Dots / Indicators */
+        .gallery-dots {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .gallery-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            padding: 0;
+        }
+
+        .gallery-dot.active {
+            width: 28px;
+            border-radius: 9999px;
+            background: #c4c9ae;
+            border-color: #c4c9ae;
+        }
+
+        /* Counter */
+        .gallery-counter {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Google Maps dark styling */
+        #map-container iframe {
+            filter: grayscale(50%) invert(92%) hue-rotate(180deg) brightness(0.9) contrast(0.9);
+            border-radius: 0.75rem;
+        }
+
+        /* ===== Lightbox / Fullscreen Viewer ===== */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), visibility 0.4s;
+            cursor: zoom-out;
+        }
+
+        .lightbox-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-img-wrapper {
+            position: relative;
+            width: 90vw;
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: grab;
+        }
+
+        .lightbox-img-wrapper.dragging {
+            cursor: grabbing;
+        }
+
+        .lightbox-img-wrapper img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transform-origin: center center;
+            user-select: none;
+            -webkit-user-drag: none;
+            pointer-events: none;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #fff;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(196, 201, 174, 0.2);
+            border-color: rgba(196, 201, 174, 0.3);
+        }
+
+        .lightbox-nav.prev {
+            left: 20px;
+        }
+
+        .lightbox-nav.next {
+            right: 20px;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .lightbox-zoom-hint {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            z-index: 10;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.4s ease;
+        }
+
+        .lightbox-zoom-hint.hidden-hint {
+            opacity: 0;
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-nav {
+                display: none;
+            }
+
+            .lightbox-close {
+                top: 12px;
+                right: 12px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .lightbox-img-wrapper {
+                width: 100vw;
+                height: 80vh;
+            }
+
+            .lightbox-zoom-hint {
+                bottom: 16px;
+                right: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-surface-dim text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+    <!-- TopNavBar -->
+    <nav
+        class="fixed top-0 w-full z-50 bg-transparent backdrop-blur-xl dark:bg-[#0e0e0e]/60 border-b border-[#767575]/15 flex justify-between items-center px-6 md:px-12 py-6 w-full">
+        <div class="text-xl font-extrabold tracking-tighter text-[#c4c9ae] font-headline uppercase">ASCENDIA 13@.
+        </div>
+        <!-- Desktop Links -->
+        <div class="hidden desktop-nav:flex space-x-12">
+            <a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-300 font-body tracking-tight text-xs uppercase"
+                href="index.html">Início</a>
+            <a class="text-[#c4c9ae] border-b border-[#c4c9ae] pb-1 font-body tracking-tight text-xs uppercase font-semibold"
+                href="imoveis.html">Imóveis</a>
+            <a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-300 font-body tracking-tight text-xs uppercase"
+                href="sobre-nos.html">Sobre Nós</a>
+            <a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-300 font-body tracking-tight text-xs uppercase"
+                href="contato.html">Contato</a>
+        </div>
+        <!-- Desktop CTA -->
+        <button
+            class="hidden desktop-nav:block bg-primary text-on-primary px-8 py-2 font-label text-xs tracking-widest uppercase hover:opacity-80 transition-opacity font-bold rounded-full">Falar
+            com Imobiliária</button>
+        <!-- Mobile Hamburger Menu Button -->
+        <button class="desktop-nav:hidden flex items-center justify-center text-primary p-2" id="hamburger-btn">
+            <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+    </nav>
+    <!-- Mobile Menu Overlay -->
+    <div class="fixed inset-0 z-[60] bg-background/95 backdrop-blur-2xl opacity-0 invisible flex flex-col items-center justify-center"
+        id="mobile-menu-overlay">
+        <button class="absolute top-6 right-6 text-primary p-2" id="close-menu-btn">
+            <span class="material-symbols-outlined text-4xl">close</span>
+        </button>
+        <div class="flex flex-col items-center space-y-8 transform translate-y-10" id="mobile-menu-content">
+            <div class="text-[#c4c9ae] font-headline text-2xl font-extrabold tracking-tighter uppercase mb-8">ASCENDIA
+                13@.</div>
+            <a class="text-on-surface text-xl uppercase tracking-widest font-headline font-bold hover:text-primary transition-colors"
+                href="index.html" onclick="toggleMenu()">Início</a>
+            <a class="text-primary text-xl uppercase tracking-widest font-headline font-bold border-b-2 border-primary"
+                href="imoveis.html" onclick="toggleMenu()">Imóveis</a>
+            <a class="text-on-surface text-xl uppercase tracking-widest font-headline font-bold hover:text-primary transition-colors"
+                href="sobre-nos.html" onclick="toggleMenu()">Sobre Nós</a>
+            <a class="text-on-surface text-xl uppercase tracking-widest font-headline font-bold hover:text-primary transition-colors"
+                href="contato.html" onclick="toggleMenu()">Contato</a>
+            <button
+                class="mt-8 bg-primary text-on-primary px-10 py-4 font-label text-sm tracking-[0.2em] uppercase font-bold rounded-full shadow-xl"
+                onclick="toggleMenu()">Falar com Imobiliária</button>
+        </div>
+    </div>
+    <script>
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuContent = document.getElementById('mobile-menu-content');
+
+        function toggleMenu() {
+            const isOpen = !mobileMenuOverlay.classList.contains('invisible');
+            if (isOpen) {
+                mobileMenuOverlay.classList.add('opacity-0', 'invisible');
+                mobileMenuContent.classList.add('translate-y-10');
+                document.body.style.overflow = '';
+            } else {
+                mobileMenuOverlay.classList.remove('opacity-0', 'invisible');
+                mobileMenuContent.classList.remove('translate-y-10');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        hamburgerBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+    </script>
+    <main class="pt-32 pb-40">
+        <!-- Loading State -->
+        <div id="loading-state" class="flex items-center justify-center min-h-[60vh]">
+            <div class="text-center">
+                <div
+                    class="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4">
+                </div>
+                <p class="font-label text-[10px] tracking-[0.3em] uppercase text-on-surface-variant">Carregando
+                    imóvel...</p>
+            </div>
+        </div>
+
+        <!-- Error State -->
+        <div id="error-state" class="hidden flex items-center justify-center min-h-[60vh]">
+            <div class="text-center">
+                <span class="material-symbols-outlined text-4xl text-error mb-4 block">error</span>
+                <p class="font-headline text-xl font-bold uppercase tracking-tight mb-2">Imóvel não encontrado</p>
+                <p class="font-body text-on-surface-variant text-sm mb-8">O imóvel solicitado não existe ou foi
+                    removido.</p>
+                <a href="imoveis.html"
+                    class="bg-primary text-on-primary px-8 py-3 font-label text-xs tracking-[0.2em] uppercase font-bold rounded-full">Ver
+                    todos os imóveis</a>
+            </div>
+        </div>
+
+        <!-- Content (hidden until loaded) -->
+        <div id="property-content" class="hidden">
+            <header class="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+                    <div>
+                        <span class="font-label text-primary text-[10px] tracking-[0.4em] uppercase mb-4 block">Listagem
+                            Exclusiva</span>
+                        <h1 id="imovel-titulo"
+                            class="text-5xl md:text-8xl font-bold tracking-tighter text-on-surface leading-none uppercase">
+                        </h1>
+                    </div>
+                    <div
+                        class="flex items-center gap-6 md:gap-12 border-l border-outline-variant/30 pl-6 md:pl-12 h-fit mt-6 md:mt-0">
+                        <div class="text-left md:text-center">
+                            <span
+                                class="block text-[9px] md:text-[10px] text-on-surface-variant uppercase tracking-widest mb-1">Status</span>
+                            <span id="imovel-status"
+                                class="text-secondary font-bold uppercase text-[10px] md:text-xs tracking-wider md:tracking-widest whitespace-nowrap"></span>
+                        </div>
+                        <div class="text-left md:text-center">
+                            <span
+                                class="block text-[9px] md:text-[10px] text-on-surface-variant uppercase tracking-widest mb-1">Preço</span>
+                            <span id="imovel-preco"
+                                class="text-on-surface font-bold text-base md:text-xl tracking-tight whitespace-nowrap"></span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Gallery -->
+            <section class="mb-24 px-0 md:px-12 max-w-screen-2xl mx-auto">
+                <div
+                    class="relative overflow-hidden aspect-[16/9] md:h-[450px] lg:h-[500px] xl:h-[550px] w-full group rounded-none md:rounded-xl">
+                    <div id="gallery-container"
+                        class="flex h-full gap-4 md:gap-6 overflow-x-auto hide-scrollbar snap-x snap-mandatory gallery-scroll">
+                    </div>
+                    <!-- Controls overlay -->
+                    <div
+                        class="absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:right-8 flex justify-between items-end z-10">
+                        <!-- Counter + Dots -->
+                        <div class="flex items-center gap-4">
+                            <span id="gallery-counter"
+                                class="gallery-counter text-[10px] uppercase tracking-[0.3em] text-white/70 font-bold hidden md:block">01
+                                / 01</span>
+                            <div id="gallery-dots" class="gallery-dots"></div>
+                        </div>
+                        <!-- Arrow buttons -->
+                        <div class="flex gap-3 md:gap-4">
+                            <button onclick="scrollGallery(-1)"
+                                class="bg-surface-container/80 backdrop-blur-md p-3 md:p-5 text-on-surface hover:bg-primary hover:text-on-primary transition-all duration-300 rounded-full">
+                                <span class="material-symbols-outlined text-sm md:text-base">chevron_left</span>
+                            </button>
+                            <button onclick="scrollGallery(1)"
+                                class="bg-surface-container/80 backdrop-blur-md p-3 md:p-5 text-on-surface hover:bg-primary hover:text-on-primary transition-all duration-300 rounded-full">
+                                <span class="material-symbols-outlined text-sm md:text-base">chevron_right</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Gradient overlay for depth -->
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none z-[5]">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Details + Sidebar -->
+            <section class="px-6 md:px-12 max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-24 items-start">
+                <div class="lg:col-span-7">
+                    <!-- Description -->
+                    <div class="mb-20">
+                        <h2 class="text-[10px] uppercase tracking-[0.4em] text-primary font-bold mb-8">Narrativa
+                            Arquitetônica</h2>
+                        <p id="imovel-descricao"
+                            class="text-xl leading-relaxed text-on-surface-variant font-light mb-8"></p>
+                    </div>
+
+                    <!-- Specs -->
+                    <div class="mb-20">
+                        <h2 class="text-[10px] uppercase tracking-[0.4em] text-primary font-bold mb-12">Especificações
+                        </h2>
+                        <div id="specs-grid"
+                            class="grid grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/20 border border-outline-variant/20 rounded-xl overflow-hidden">
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="mb-20">
+                        <h2 class="text-[10px] uppercase tracking-[0.4em] text-primary font-bold mb-12">Bairro</h2>
+                        <div id="map-container"
+                            class="relative w-full aspect-video bg-surface-container rounded-xl overflow-hidden">
+                            <!-- Loading state for map -->
+                            <div id="map-loading"
+                                class="absolute inset-0 bg-surface-container flex items-center justify-center z-10">
+                                <div class="text-center">
+                                    <div
+                                        class="w-6 h-6 bg-primary rounded-full ring-8 ring-primary/20 animate-pulse mx-auto mb-3">
+                                    </div>
+                                    <span
+                                        class="text-[9px] uppercase tracking-[0.3em] text-on-surface-variant/60">Carregando
+                                        mapa...</span>
+                                </div>
+                            </div>
+                            <!-- Google Maps iframe will be injected here -->
+                        </div>
+                        <div class="mt-4 flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-lg">location_on</span>
+                            <h3 id="imovel-localizacao"
+                                class="text-sm font-bold uppercase tracking-tighter text-on-surface-variant"></h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar / Contact -->
+                <aside class="lg:col-span-5 lg:sticky lg:top-32">
+                    <div class="bg-surface-container-low p-12 border border-outline-variant/10 rounded-xl">
+                        <h3 class="text-3xl font-bold tracking-tighter mb-2 uppercase">Solicitar Atendimento</h3>
+                        <p class="text-[10px] text-on-surface-variant uppercase tracking-widest mb-12 font-semibold">
+                            Acesso
+                            Exclusivo ao Concierge</p>
+                        <form class="space-y-10">
+                            <div class="relative group">
+                                <label
+                                    class="block text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-3 group-focus-within:text-primary transition-colors font-bold">Nome
+                                    Completo</label>
+                                <input
+                                    class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary px-0 py-2 text-on-surface transition-all placeholder:text-outline/40"
+                                    placeholder="Seu nome completo" type="text" />
+                            </div>
+                            <div class="relative group">
+                                <label
+                                    class="block text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-3 group-focus-within:text-primary transition-colors font-bold">Whatsapp</label>
+                                <input
+                                    class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary px-0 py-2 text-on-surface transition-all placeholder:text-outline/40"
+                                    placeholder="(13) 99999-9999" type="tel" />
+                            </div>
+                            <div class="relative group">
+                                <label
+                                    class="block text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-3 group-focus-within:text-primary transition-colors font-bold">Mensagem</label>
+                                <textarea
+                                    class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary px-0 py-2 text-on-surface transition-all placeholder:text-outline/40 resize-none"
+                                    placeholder="Descreva seu interesse neste imóvel..." rows="3"></textarea>
+                            </div>
+                            <div class="pt-8">
+                                <button type="submit"
+                                    class="w-full bg-primary text-on-primary py-6 uppercase text-xs tracking-[0.3em] font-bold hover:opacity-90 transition-all rounded-full">
+                                    enviar mensagem para o corretor
+                                </button>
+                            </div>
+                        </form>
+                        <!-- Botão WhatsApp -->
+                        <a id="whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer"
+                            class="hidden mt-6 w-full bg-[#25D366] text-white py-5 uppercase text-xs tracking-[0.3em] font-bold hover:bg-[#1fb855] transition-all rounded-full flex items-center justify-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                            </svg>
+                            <span>Chamar no WhatsApp</span>
+                        </a>
+                        <div class="mt-12 pt-12 border-t border-outline-variant/10 flex items-center justify-between">
+                            <div class="flex -space-x-3">
+                                <div
+                                    class="w-12 h-12 bg-surface-container-high border-2 border-surface-container-low flex items-center justify-center rounded-full">
+                                    <span class="material-symbols-outlined text-sm">headset_mic</span>
+                                </div>
+                                <div
+                                    class="w-12 h-12 bg-surface-container-high border-2 border-surface-container-low flex items-center justify-center rounded-full">
+                                    <span class="material-symbols-outlined text-sm">calendar_today</span>
+                                </div>
+                            </div>
+                            <p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Resposta
+                                em
+                                até 2 horas</p>
+                        </div>
+                    </div>
+                </aside>
+            </section>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer
+        class="bg-[#000000] dark:bg-[#000000] w-full border-t border-[#767575]/10 grid grid-cols-1 md:grid-cols-4 gap-12 px-6 md:px-12 py-24 max-w-full">
+        <div class="col-span-1 md:col-span-2">
+            <div class="text-[#c4c9ae] font-headline text-lg mb-8 uppercase tracking-tighter font-extrabold">
+                ASCENDIA 13@.</div>
+            <p class="text-[#767575] font-body leading-relaxed text-[10px] tracking-[0.2em] uppercase max-w-sm">
+                © 2026 Ascendia Curator
+            </p>
+        </div>
+        <div>
+            <h4 class="text-[#c4c9ae] font-label text-[10px] tracking-[0.2em] uppercase mb-6 font-bold">
+                Explorar</h4>
+            <ul class="space-y-4 font-body text-[10px] tracking-[0.2em] uppercase">
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="index.html">Home</a></li>
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="imoveis.html">Imóveis</a></li>
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="sobre-nos.html">Sobre Nós</a></li>
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="contato.html">Contato</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-[#c4c9ae] font-label text-[10px] tracking-[0.2em] uppercase mb-6 font-bold">
+                Redes Sociais</h4>
+            <ul class="space-y-4 font-body text-[10px] tracking-[0.2em] uppercase">
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="https://wa.me/5599999999" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+            </ul>
+        </div>
+    </footer>
+    <!-- Mobile Navigation -->
+    <nav
+        class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-[#0e0e0e]/90 backdrop-blur-lg border-t border-[#767575]/15">
+        <a class="flex flex-col items-center justify-center text-[#767575] hover:text-[#c4c9ae]" href="#">
+            <span class="material-symbols-outlined">photo_library</span>
+            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1">Galeria</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#c4c9ae] scale-105" href="#">
+            <span class="material-symbols-outlined">list_alt</span>
+            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1">Detalhes</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#767575] hover:text-[#c4c9ae]" href="#">
+            <span class="material-symbols-outlined">location_on</span>
+            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1">Mapa</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#767575] hover:text-[#c4c9ae]" href="#">
+            <span class="material-symbols-outlined">mail</span>
+            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1">Contato</span>
+        </a>
+    </nav>
+
+    <!-- Lightbox / Fullscreen Image Viewer -->
+    <div id="lightbox-overlay" class="lightbox-overlay" onclick="lightboxHandleOverlayClick(event)">
+        <button class="lightbox-close" onclick="closeLightbox()">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <button class="lightbox-nav prev" onclick="lightboxNav(-1)">
+            <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <button class="lightbox-nav next" onclick="lightboxNav(1)">
+            <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+        <div id="lightbox-img-wrapper" class="lightbox-img-wrapper">
+            <img id="lightbox-img" src="" alt="" />
+        </div>
+        <span id="lightbox-counter" class="lightbox-counter"></span>
+        <span id="lightbox-zoom-hint" class="lightbox-zoom-hint">
+            <span class="material-symbols-outlined" style="font-size:14px">zoom_in</span>
+            Scroll para zoom
+        </span>
+    </div>
+
+    <script>
+        // Inicialização do Lenis (Scroll Suave)
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        // ===== Custom Popup Feedback =====
+        function showPopup({ title, message, type = 'success' }) {
+            const overlay = document.createElement('div');
+            overlay.className = 'fixed inset-0 flex items-center justify-center z-[9999] p-4 bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-none';
+            
+            const isSuccess = type === 'success';
+            const isError = type === 'error';
+            
+            let iconColorClass = 'bg-primary/10 text-primary';
+            let iconName = 'check_circle';
+            let buttonBgClass = 'bg-primary text-on-primary';
+            
+            if (isError) {
+                iconColorClass = 'bg-error/10 text-error';
+                iconName = 'error';
+                buttonBgClass = 'bg-error text-on-error';
+            } else if (type === 'warning') {
+                iconColorClass = 'bg-secondary/10 text-secondary';
+                iconName = 'warning';
+                buttonBgClass = 'bg-secondary text-on-secondary';
+            }
+            
+            overlay.innerHTML = `
+                <div class="bg-surface-container-low border border-outline-variant/20 rounded-2xl p-8 max-w-sm w-full shadow-2xl text-center transform scale-95 opacity-0 transition-all duration-300">
+                    <div class="w-16 h-16 ${iconColorClass} rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="material-symbols-outlined text-3xl font-light">${iconName}</span>
+                    </div>
+                    <h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 uppercase">${title}</h3>
+                    <p class="text-sm text-on-surface-variant mb-6 leading-relaxed">${message}</p>
+                    <button class="w-full ${buttonBgClass} py-4 uppercase text-[10px] tracking-[0.2em] font-bold hover:opacity-90 transition-all rounded-full">
+                        Fechar
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+            const content = overlay.querySelector('div');
+            const button = overlay.querySelector('button');
+            
+            requestAnimationFrame(() => {
+                overlay.classList.remove('pointer-events-none', 'opacity-0');
+                content.classList.remove('scale-95', 'opacity-0');
+            });
+            
+            const closePopup = () => {
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+                content.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    overlay.remove();
+                }, 300);
+            };
+            
+            button.addEventListener('click', closePopup);
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) closePopup();
+            });
+        }
+
+        // ===== Gallery Controller (scroll-based with indicators) =====
+        let currentSlide = 0;
+        let totalSlides = 0;
+        let isProgrammaticScroll = false;
+
+        function initGallery(fotos, titulo) {
+            const gallery = document.getElementById('gallery-container');
+            const dotsContainer = document.getElementById('gallery-dots');
+
+            if (!fotos || fotos.length === 0) {
+                gallery.innerHTML = `
+                    <div class="flex-none w-full h-full flex items-center justify-center bg-surface-container">
+                        <span class="material-symbols-outlined text-6xl text-outline/30">image</span>
+                    </div>
+                `;
+                totalSlides = 1;
+                updateCounter();
+                return;
+            }
+
+            totalSlides = fotos.length;
+
+            // Create gallery items
+            gallery.innerHTML = fotos.map((foto, i) => `
+                <div class="flex-none ${i === 0 ? 'w-full md:w-[70%]' : 'w-full md:w-1/2'} h-full snap-start rounded-none md:rounded-lg overflow-hidden" data-slide="${i}">
+                    <img class="gallery-item w-full h-full object-cover"
+                        style="filter: grayscale(30%); cursor: zoom-in;"
+                        alt="${titulo} - Foto ${i + 1}"
+                        src="${foto}"
+                        loading="${i < 2 ? 'eager' : 'lazy'}"
+                        onclick="openLightbox(${i})" />
+                </div>
+            `).join('');
+
+            // Create dots
+            dotsContainer.innerHTML = fotos.map((_, i) => `
+                <button class="gallery-dot ${i === 0 ? 'active' : ''}" data-index="${i}" onclick="goToSlide(${i})"></button>
+            `).join('');
+
+            updateCounter();
+
+            // Track visible slide on manual scroll
+            let scrollTimer = null;
+            gallery.addEventListener('scroll', () => {
+                if (isProgrammaticScroll) return;
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(() => {
+                    detectCurrentSlide();
+                }, 150); // Debounce to allow snap to finish
+            }, { passive: true });
+        }
+
+        function detectCurrentSlide() {
+            const gallery = document.getElementById('gallery-container');
+            if (!gallery) return;
+            const slides = gallery.querySelectorAll('[data-slide]');
+            const galleryRect = gallery.getBoundingClientRect();
+            // Point of interest is a bit right of the left edge
+            const galleryPointX = galleryRect.left + (galleryRect.width * 0.4);
+
+            let closestIndex = 0;
+            let closestDistance = Infinity;
+
+            slides.forEach((slide, i) => {
+                const rect = slide.getBoundingClientRect();
+                const slidePointX = rect.left + (rect.width / 2);
+                const distance = Math.abs(slidePointX - galleryPointX);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestIndex = i;
+                }
+            });
+
+            if (closestIndex !== currentSlide) {
+                currentSlide = closestIndex;
+                updateDots();
+                updateCounter();
+            }
+        }
+
+        function smoothScrollTo(element, targetScrollLeft, duration = 600) {
+            if (isProgrammaticScroll) return;
+            isProgrammaticScroll = true;
+
+            // Temporarily disable scroll-snap to prevent browser fighting the animation
+            element.style.scrollSnapType = 'none';
+
+            const start = element.scrollLeft;
+            const distance = targetScrollLeft - start;
+            let startTime = null;
+
+            function easeInOutCubic(t) {
+                return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+            }
+
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const elapsed = timestamp - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = easeInOutCubic(progress);
+
+                element.scrollLeft = start + distance * eased;
+
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    element.style.scrollSnapType = ''; // Restore original snap
+                    isProgrammaticScroll = false;
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
+        function scrollGallery(direction) {
+            const gallery = document.getElementById('gallery-container');
+            if (!gallery) return;
+            const slides = gallery.querySelectorAll('[data-slide]');
+            const nextIndex = Math.max(0, Math.min(totalSlides - 1, currentSlide + direction));
+
+            if (slides[nextIndex]) {
+                const targetLeft = slides[nextIndex].offsetLeft - gallery.offsetLeft;
+                smoothScrollTo(gallery, targetLeft, 700);
+
+                currentSlide = nextIndex;
+                updateDots();
+                updateCounter();
+            }
+        }
+
+        function goToSlide(index) {
+            const gallery = document.getElementById('gallery-container');
+            if (!gallery) return;
+            const slides = gallery.querySelectorAll('[data-slide]');
+
+            if (slides[index]) {
+                const targetLeft = slides[index].offsetLeft - gallery.offsetLeft;
+                smoothScrollTo(gallery, targetLeft, 700);
+
+                currentSlide = index;
+                updateDots();
+                updateCounter();
+            }
+        }
+
+        function updateDots() {
+            document.querySelectorAll('.gallery-dot').forEach((d, i) => {
+                d.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function updateCounter() {
+            const counter = document.getElementById('gallery-counter');
+            if (counter) {
+                counter.textContent = `${String(currentSlide + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            // If lightbox is open, handle keys there
+            if (lightboxIsOpen) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') lightboxNav(1);
+                if (e.key === 'ArrowLeft') lightboxNav(-1);
+                return;
+            }
+            if (e.key === 'ArrowRight') scrollGallery(1);
+            if (e.key === 'ArrowLeft') scrollGallery(-1);
+        });
+
+        // ===== Lightbox / Fullscreen Viewer with Zoom & Pan =====
+        let lightboxIsOpen = false;
+        let lightboxIndex = 0;
+        let lightboxFotos = [];
+        let lbZoom = 1;
+        let lbPanX = 0;
+        let lbPanY = 0;
+        let lbDragging = false;
+        let lbDragStartX = 0;
+        let lbDragStartY = 0;
+        let lbPanStartX = 0;
+        let lbPanStartY = 0;
+        // Pinch zoom state
+        let lbLastPinchDist = 0;
+
+        function openLightbox(index) {
+            const gallery = document.getElementById('gallery-container');
+            const imgs = gallery.querySelectorAll('img.gallery-item');
+            lightboxFotos = Array.from(imgs).map(img => img.src);
+            lightboxIndex = index;
+            lightboxIsOpen = true;
+            lbZoom = 1;
+            lbPanX = 0;
+            lbPanY = 0;
+            updateLightboxImage();
+            document.getElementById('lightbox-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // Show zoom hint, hide after 3s
+            const hint = document.getElementById('lightbox-zoom-hint');
+            hint.classList.remove('hidden-hint');
+            setTimeout(() => hint.classList.add('hidden-hint'), 3000);
+        }
+
+        function closeLightbox() {
+            lightboxIsOpen = false;
+            document.getElementById('lightbox-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+            lbZoom = 1;
+            lbPanX = 0;
+            lbPanY = 0;
+        }
+
+        function lightboxHandleOverlayClick(e) {
+            // Close only if clicking on the overlay background itself
+            if (e.target === document.getElementById('lightbox-overlay')) {
+                closeLightbox();
+            }
+        }
+
+        function lightboxNav(dir) {
+            if (lightboxFotos.length === 0) return;
+            lightboxIndex = (lightboxIndex + dir + lightboxFotos.length) % lightboxFotos.length;
+            lbZoom = 1;
+            lbPanX = 0;
+            lbPanY = 0;
+            updateLightboxImage();
+        }
+
+        function updateLightboxImage() {
+            const img = document.getElementById('lightbox-img');
+            const counter = document.getElementById('lightbox-counter');
+            img.src = lightboxFotos[lightboxIndex];
+            img.alt = `Foto ${lightboxIndex + 1}`;
+            counter.textContent = `${String(lightboxIndex + 1).padStart(2, '0')} / ${String(lightboxFotos.length).padStart(2, '0')}`;
+            applyLightboxTransform();
+        }
+
+        function applyLightboxTransform() {
+            const img = document.getElementById('lightbox-img');
+            img.style.transform = `translate(${lbPanX}px, ${lbPanY}px) scale(${lbZoom})`;
+        }
+
+        function clampPan() {
+            if (lbZoom <= 1) {
+                lbPanX = 0;
+                lbPanY = 0;
+                return;
+            }
+            const wrapper = document.getElementById('lightbox-img-wrapper');
+            const img = document.getElementById('lightbox-img');
+            const wRect = wrapper.getBoundingClientRect();
+            const imgW = img.naturalWidth ? Math.min(img.naturalWidth, wRect.width) : wRect.width;
+            const imgH = img.naturalHeight ? Math.min(img.naturalHeight, wRect.height) : wRect.height;
+            const maxPanX = Math.max(0, (imgW * lbZoom - wRect.width) / 2);
+            const maxPanY = Math.max(0, (imgH * lbZoom - wRect.height) / 2);
+            lbPanX = Math.max(-maxPanX, Math.min(maxPanX, lbPanX));
+            lbPanY = Math.max(-maxPanY, Math.min(maxPanY, lbPanY));
+        }
+
+        // Scroll-to-zoom on the lightbox wrapper
+        (function initLightboxZoom() {
+            const wrapper = document.getElementById('lightbox-img-wrapper');
+
+            // Mouse wheel zoom
+            wrapper.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const delta = e.deltaY > 0 ? -0.15 : 0.15;
+                lbZoom = Math.max(1, Math.min(5, lbZoom + delta));
+                if (lbZoom <= 1) { lbPanX = 0; lbPanY = 0; }
+                clampPan();
+                applyLightboxTransform();
+                // Hide hint on first zoom
+                document.getElementById('lightbox-zoom-hint').classList.add('hidden-hint');
+            }, { passive: false });
+
+            // Double-click to toggle zoom
+            wrapper.addEventListener('dblclick', (e) => {
+                e.preventDefault();
+                if (lbZoom > 1) {
+                    lbZoom = 1;
+                    lbPanX = 0;
+                    lbPanY = 0;
+                } else {
+                    lbZoom = 2.5;
+                }
+                clampPan();
+                applyLightboxTransform();
+            });
+
+            // Drag-to-pan (mouse)
+            wrapper.addEventListener('mousedown', (e) => {
+                if (lbZoom <= 1) return;
+                e.preventDefault();
+                lbDragging = true;
+                lbDragStartX = e.clientX;
+                lbDragStartY = e.clientY;
+                lbPanStartX = lbPanX;
+                lbPanStartY = lbPanY;
+                wrapper.classList.add('dragging');
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!lbDragging) return;
+                lbPanX = lbPanStartX + (e.clientX - lbDragStartX);
+                lbPanY = lbPanStartY + (e.clientY - lbDragStartY);
+                clampPan();
+                applyLightboxTransform();
+            });
+
+            window.addEventListener('mouseup', () => {
+                lbDragging = false;
+                wrapper.classList.remove('dragging');
+            });
+
+            // Touch: drag-to-pan + pinch-to-zoom
+            wrapper.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1 && lbZoom > 1) {
+                    lbDragging = true;
+                    lbDragStartX = e.touches[0].clientX;
+                    lbDragStartY = e.touches[0].clientY;
+                    lbPanStartX = lbPanX;
+                    lbPanStartY = lbPanY;
+                } else if (e.touches.length === 2) {
+                    lbLastPinchDist = getPinchDistance(e.touches);
+                }
+            }, { passive: true });
+
+            wrapper.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1 && lbDragging) {
+                    e.preventDefault();
+                    lbPanX = lbPanStartX + (e.touches[0].clientX - lbDragStartX);
+                    lbPanY = lbPanStartY + (e.touches[0].clientY - lbDragStartY);
+                    clampPan();
+                    applyLightboxTransform();
+                } else if (e.touches.length === 2) {
+                    e.preventDefault();
+                    const dist = getPinchDistance(e.touches);
+                    const scale = dist / lbLastPinchDist;
+                    lbZoom = Math.max(1, Math.min(5, lbZoom * scale));
+                    lbLastPinchDist = dist;
+                    if (lbZoom <= 1) { lbPanX = 0; lbPanY = 0; }
+                    clampPan();
+                    applyLightboxTransform();
+                }
+            }, { passive: false });
+
+            wrapper.addEventListener('touchend', () => {
+                lbDragging = false;
+            });
+
+            function getPinchDistance(touches) {
+                const dx = touches[0].clientX - touches[1].clientX;
+                const dy = touches[0].clientY - touches[1].clientY;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+        })();
+
+        // Swipe to navigate on lightbox (single-finger when not zoomed)
+        (function initLightboxSwipe() {
+            const wrapper = document.getElementById('lightbox-img-wrapper');
+            let swipeStartX = 0;
+            let swipeStartY = 0;
+
+            wrapper.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1 && lbZoom <= 1) {
+                    swipeStartX = e.touches[0].clientX;
+                    swipeStartY = e.touches[0].clientY;
+                }
+            }, { passive: true });
+
+            wrapper.addEventListener('touchend', (e) => {
+                if (lbZoom > 1 || !lightboxIsOpen) return;
+                const dx = e.changedTouches[0].clientX - swipeStartX;
+                const dy = e.changedTouches[0].clientY - swipeStartY;
+                if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+                    lightboxNav(dx < 0 ? 1 : -1);
+                }
+            });
+        })();
+
+        // ===== Google Maps Helper =====
+        function initMap(bairro, cidade) {
+            const mapContainer = document.getElementById('map-container');
+            const mapLoading = document.getElementById('map-loading');
+            const query = [bairro, cidade, 'SP', 'Brasil'].filter(Boolean).join(', ');
+
+            if (!query || query === 'SP, Brasil') {
+                mapLoading.innerHTML = `
+                    <div class="text-center">
+                        <span class="material-symbols-outlined text-3xl text-outline/40 mb-2 block">location_off</span>
+                        <span class="text-[9px] uppercase tracking-[0.3em] text-on-surface-variant/60">Localização não disponível</span>
+                    </div>
+                `;
+                return;
+            }
+
+            const encodedQuery = encodeURIComponent(query);
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://maps.google.com/maps?q=${encodedQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+            iframe.width = '100%';
+            iframe.height = '100%';
+            iframe.style.border = '0';
+            iframe.allowFullscreen = true;
+            iframe.loading = 'lazy';
+            iframe.referrerPolicy = 'no-referrer-when-downgrade';
+
+            iframe.addEventListener('load', () => {
+                mapLoading.style.opacity = '0';
+                mapLoading.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => mapLoading.style.display = 'none', 500);
+            });
+
+            mapContainer.appendChild(iframe);
+        }
+
+        // Carregar dados do imóvel a partir do ?id= na URL
+        async function carregarImovel() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+
+            const loadingState = document.getElementById('loading-state');
+            const errorState = document.getElementById('error-state');
+            const propertyContent = document.getElementById('property-content');
+
+            if (!id) {
+                loadingState.classList.add('hidden');
+                errorState.classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/imoveis/${id}`);
+                if (!response.ok) throw new Error('Imóvel não encontrado');
+                const imovel = await response.json();
+
+                // Título
+                document.getElementById('imovel-titulo').textContent = imovel.titulo || 'Sem título';
+                document.title = `${imovel.titulo} — Ascendia 13@.`;
+
+                // Status
+                document.getElementById('imovel-status').textContent = imovel.status || 'Disponível';
+
+                // Preço
+                const precoEl = document.getElementById('imovel-preco');
+                if (imovel.preco && Number(imovel.preco) > 0) {
+                    precoEl.textContent = Number(imovel.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                } else {
+                    precoEl.textContent = 'Sob Consulta';
+                }
+
+                // Galeria de fotos (design original + indicadores)
+                initGallery(imovel.fotos, imovel.titulo || 'Imóvel');
+
+                // Descrição
+                const descEl = document.getElementById('imovel-descricao');
+                descEl.textContent = imovel.descricao || 'Descrição não disponível para este imóvel.';
+
+                // Especificações
+                const specsGrid = document.getElementById('specs-grid');
+                const specs = [
+                    { label: 'Área Total', value: imovel.area_total ? `${imovel.area_total} m²` : null },
+                    { label: 'Suítes', value: imovel.suites ? String(imovel.suites).padStart(2, '0') : null },
+                    { label: 'Quartos', value: imovel.quartos ? String(imovel.quartos).padStart(2, '0') : null },
+                    { label: 'Vagas', value: imovel.vagas ? String(imovel.vagas).padStart(2, '0') : null },
+                    { label: 'Andar', value: imovel.andar ? `${imovel.andar}º` : null },
+                    { label: 'Salas', value: imovel.salas ? String(imovel.salas).padStart(2, '0') : null },
+                    { label: 'Banheiros', value: imovel.banheiros ? String(imovel.banheiros).padStart(2, '0') : null },
+                    { label: 'Tipo', value: imovel.tipo || null },
+                    { label: 'Condomínio', value: imovel.condominio ? Number(imovel.condominio).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : null },
+                    { label: 'IPTU', value: imovel.iptu ? Number(imovel.iptu).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : null },
+                ].filter(s => s.value);
+
+                specsGrid.innerHTML = specs.map((spec, i) => `
+                    <div class="bg-surface-container-low p-8 flex justify-between items-center ${i === specs.length - 1 && specs.length % 2 !== 0 ? 'md:col-span-2' : ''}">
+                        <span class="text-xs uppercase tracking-widest text-on-surface-variant font-semibold">${spec.label}</span>
+                        <span class="font-bold text-on-surface">${spec.value}</span>
+                    </div>
+                `).join('');
+
+                // Localização + Google Maps
+                const locEl = document.getElementById('imovel-localizacao');
+                const parts = [imovel.bairro, imovel.cidade].filter(Boolean);
+                locEl.textContent = parts.length > 0 ? parts.join(', ') : 'Localização não informada';
+
+                // Inicializar mapa
+                initMap(imovel.bairro, imovel.cidade);
+
+                // Guardar o corretor_id (responsavel) para o formulário de contato
+                if (typeof imovelCorretorId !== 'undefined') {
+                    imovelCorretorId = imovel.responsavel || null;
+                }
+
+                // Configurar botão do WhatsApp do corretor
+                if (imovel.corretores && imovel.corretores.telefone) {
+                    const whatsappBtn = document.getElementById('whatsapp-btn');
+                    // Limpar o telefone: remover tudo que não é número
+                    let telefone = imovel.corretores.telefone.replace(/\D/g, '');
+                    // Adicionar código do país se não tiver
+                    if (!telefone.startsWith('55')) {
+                        telefone = '55' + telefone;
+                    }
+                    // Montar mensagem pré-definida
+                    const linkImovel = window.location.href;
+                    const nomeAnuncio = imovel.titulo || 'este imóvel';
+                    const mensagemWhatsapp = `Olá, vi o anúncio *${nomeAnuncio}* e me interessei, pode me retornar?\n\n${linkImovel}`;
+                    // Montar link do WhatsApp
+                    whatsappBtn.href = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagemWhatsapp)}`;
+                    whatsappBtn.classList.remove('hidden');
+                }
+
+                // Mostrar conteúdo
+                loadingState.classList.add('hidden');
+                propertyContent.classList.remove('hidden');
+
+            } catch (error) {
+                console.error('Erro ao carregar imóvel:', error);
+                loadingState.classList.add('hidden');
+                errorState.classList.remove('hidden');
+            }
+        }
+
+        carregarImovel();
+
+        // Formulário de Solicitação de Atendimento (Concierge)
+        let imovelCorretorId = null; // Será preenchido após carregar o imóvel
+
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const nomeInput = form.querySelector('input[type="text"]');
+                const whatsappInput = form.querySelector('input[type="tel"]');
+                const mensagemInput = form.querySelector('textarea');
+                const submitButton = form.querySelector('button');
+
+                const pageTitle = document.querySelector('h1')?.textContent?.trim() || '';
+
+                const payload = {
+                    nome: nomeInput.value.trim(),
+                    whatsapp: whatsappInput.value.trim(),
+                    mensagem: mensagemInput.value.trim() || `Interesse no imóvel: ${pageTitle}`,
+                    imovel_titulo: pageTitle,
+                    destinatario: imovelCorretorId
+                };
+
+                if (!payload.nome || !payload.whatsapp) {
+                    showPopup({
+                        title: 'Atenção',
+                        message: 'Por favor, preencha o Nome e o Whatsapp.',
+                        type: 'warning'
+                    });
+                    return;
+                }
+
+                const telefoneLimpo = payload.whatsapp.replace(/\D/g, '');
+                if (telefoneLimpo.length < 10 || telefoneLimpo.length > 11) {
+                    showPopup({
+                        title: 'Número Inválido',
+                        message: 'Por favor, insira um número de Whatsapp válido com DDD (ex: (13) 99999-9999).',
+                        type: 'warning'
+                    });
+                    return;
+                }
+
+                try {
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'ENVIANDO...';
+
+                    const response = await fetch('/api/contatos', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        showPopup({
+                            title: 'Sucesso!',
+                            message: 'Sua solicitação foi enviada com sucesso! Um corretor especialista entrará em contato.',
+                            type: 'success'
+                        });
+                        form.reset();
+                    } else {
+                        throw new Error(result.error || 'Erro desconhecido');
+                    }
+                } catch (error) {
+                    console.error('Erro ao enviar solicitação:', error);
+                    showPopup({
+                        title: 'Erro',
+                        message: 'Ocorreu um erro ao enviar sua solicitação. Por favor, tente novamente.',
+                        type: 'error'
+                    });
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Conectar com Especialista';
+                }
+            });
+        }
+
+        // Máscara dinâmica para inputs de telefone/whatsapp brasileiro
+        document.querySelectorAll('input[type="tel"]').forEach(input => {
+            input.addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 11) value = value.slice(0, 11);
+                
+                if (value.length > 10) {
+                    e.target.value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+                } else if (value.length > 6) {
+                    e.target.value = `(${value.slice(0, 2)}) ${value.slice(2, 6)}-${value.slice(6)}`;
+                } else if (value.length > 2) {
+                    e.target.value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+                } else if (value.length > 0) {
+                    e.target.value = `(${value}`;
+                } else {
+                    e.target.value = '';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

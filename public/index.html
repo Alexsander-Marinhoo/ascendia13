@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ASCENDIA 13@. | Sua Imobiliária na Praia Grande</title>
+    <link rel="icon" type="image/x-icon" href="./imgs/favicon.ico" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Lenis para scroll suave -->
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "screens": {
+                        "desktop-nav": "1001px"
+                    },
+                    "colors": {
+                        "surface-tint": "#c4c9ae",
+                        "primary-fixed-dim": "#d2d7bb",
+                        "on-secondary-container": "#daba94",
+                        "tertiary-container": "#edebe6",
+                        "primary-container": "#444934",
+                        "tertiary-fixed-dim": "#e7e5e0",
+                        "inverse-on-surface": "#565555",
+                        "on-error-container": "#ff9993",
+                        "primary-fixed": "#e1e5c9",
+                        "surface-container-low": "#131313",
+                        "primary-dim": "#b7bba1",
+                        "error-container": "#7f2927",
+                        "on-surface": "#e7e5e5",
+                        "surface-dim": "#0e0e0e",
+                        "secondary-dim": "#b79975",
+                        "surface-container-highest": "#252626",
+                        "tertiary": "#fbf9f4",
+                        "secondary-fixed": "#ffddb6",
+                        "surface-bright": "#2b2c2c",
+                        "primary": "#c4c9ae",
+                        "on-secondary-fixed": "#513b1e",
+                        "surface-container-lowest": "#000000",
+                        "error": "#ee7d77",
+                        "outline": "#767575",
+                        "on-secondary-fixed-variant": "#705738",
+                        "surface-variant": "#252626",
+                        "background": "#0e0e0e",
+                        "on-tertiary-container": "#575753",
+                        "surface-container": "#191a1a",
+                        "outline-variant": "#484848",
+                        "secondary-container": "#4d371b",
+                        "surface-container-high": "#1f2020",
+                        "on-secondary": "#2e1c04",
+                        "on-tertiary": "#5f5f5b",
+                        "on-error": "#490106",
+                        "inverse-primary": "#5c614b",
+                        "on-primary-container": "#ced3b7",
+                        "on-primary": "#3d422e",
+                        "on-tertiary-fixed-variant": "#666662",
+                        "on-background": "#e7e5e5",
+                        "secondary": "#b79975",
+                        "surface": "#0e0e0e",
+                        "secondary-fixed-dim": "#f1cfa8",
+                        "tertiary-dim": "#edebe6",
+                        "tertiary-fixed": "#f6f3ee",
+                        "on-primary-fixed-variant": "#595e48",
+                        "on-tertiary-fixed": "#4a4a46",
+                        "on-primary-fixed": "#3d412d",
+                        "error-dim": "#bb5551",
+                        "inverse-surface": "#fcf9f8",
+                        "on-surface-variant": "#acabaa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1.5rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "serif": ["Georgia", "serif"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Estilos do Lenis para scroll suave */
+        html.lenis,
+        html.lenis body {
+            height: auto;
+        }
+
+        .lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+
+        .lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis-stopped {
+            overflow: hidden;
+        }
+
+        .lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            background-color: #0e0e0e;
+            color: #e7e5e5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .architectural-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+        }
+
+        .inter-tight {
+            letter-spacing: -0.04em;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .carousel-container {
+            scroll-behavior: smooth;
+        }
+
+        /* Carousel card sizing: 3 cards + peek on desktop */
+        .carousel-card {
+            flex-shrink: 0;
+        }
+
+        /* Mobile: 1 card + peek (mostra ~1.2 cards) */
+        .carousel-card {
+            width: calc((100vw - 3rem - 2rem) / 1.2);
+        }
+
+        /* Tablet (>=640px): 2 cards + peek (~2.3 cards) */
+        @media (min-width: 640px) {
+            .carousel-card {
+                width: calc((100vw - 3rem - 2rem * 2) / 2.3);
+            }
+        }
+
+        /* Desktop (>=1024px): 3 cards + half peek (~3.5 cards) */
+        @media (min-width: 1024px) {
+            .carousel-card {
+                width: calc((100vw - 6rem - 2rem * 3) / 3.5);
+            }
+        }
+
+        /* Large Desktop (>=1400px) */
+        @media (min-width: 1400px) {
+            .carousel-card {
+                width: calc((100vw - 6rem - 2rem * 3) / 3.5);
+            }
+        }
+
+        #mobile-menu-overlay {
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        #mobile-menu-content {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+
+<body class="font-body">
+    <!-- TopNavBar -->
+    <nav
+        class="fixed top-0 w-full z-50 bg-transparent backdrop-blur-xl dark:bg-[#0e0e0e]/60 border-b border-[#767575]/15 flex justify-between items-center px-6 md:px-12 py-6 w-full">
+        <div class="text-xl font-extrabold tracking-tighter text-[#c4c9ae] font-headline uppercase">ASCENDIA 13@.
+        </div>
+        <!-- Desktop Links -->
+        <div class="hidden desktop-nav:flex space-x-12">
+            <a class="text-[#c4c9ae] border-b border-[#c4c9ae] pb-1 font-body tracking-tight text-xs uppercase font-semibold"
+                href="index.html">Início</a>
+            <a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-300 font-body tracking-tight text-xs uppercase"
+                href="imoveis.html">Imóveis</a>
+            <a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-300 font-body tracking-tight text-xs uppercase"
+                href="sobre-nos.html">Sobre Nós</a>
+            <a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-300 font-body tracking-tight text-xs uppercase"
+                href="contato.html">Contato</a>
+        </div>
+        <!-- Desktop CTA -->
+        <button
+            class="hidden desktop-nav:block bg-primary text-on-primary px-8 py-2 font-label text-xs tracking-widest uppercase hover:opacity-80 transition-opacity font-bold rounded-full"
+            onclick="lenis.scrollTo('#contato')">Falar com Imobiliária</button>
+        <!-- Mobile Hamburger Menu Button -->
+        <button class="desktop-nav:hidden flex items-center justify-center text-primary p-2" id="hamburger-btn">
+            <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+    </nav>
+    <!-- Mobile Menu Overlay -->
+    <div class="fixed inset-0 z-[60] bg-background/95 backdrop-blur-2xl opacity-0 invisible flex flex-col items-center justify-center"
+        id="mobile-menu-overlay">
+        <button class="absolute top-6 right-6 text-primary p-2" id="close-menu-btn">
+            <span class="material-symbols-outlined text-4xl">close</span>
+        </button>
+        <div class="flex flex-col items-center space-y-8 transform translate-y-10" id="mobile-menu-content">
+            <div class="text-[#c4c9ae] font-headline text-2xl font-extrabold tracking-tighter uppercase mb-8">ASCENDIA
+                13@.</div>
+            <a class="text-primary text-xl uppercase tracking-widest font-headline font-bold border-b-2 border-primary"
+                href="index.html" onclick="toggleMenu()">Início</a>
+            <a class="text-on-surface text-xl uppercase tracking-widest font-headline font-bold hover:text-primary transition-colors"
+                href="imoveis.html" onclick="toggleMenu()">Imóveis</a>
+            <a class="text-on-surface text-xl uppercase tracking-widest font-headline font-bold hover:text-primary transition-colors"
+                href="sobre-nos.html" onclick="toggleMenu()">Sobre Nós</a>
+            <a class="text-on-surface text-xl uppercase tracking-widest font-headline font-bold hover:text-primary transition-colors"
+                href="contato.html" onclick="toggleMenu()">Contato</a>
+            <button
+                class="mt-8 bg-primary text-on-primary px-10 py-4 font-label text-sm tracking-[0.2em] uppercase font-bold rounded-full shadow-xl"
+                onclick="toggleMenu(); lenis.scrollTo('#contato')">Falar com Imobiliária</button>
+        </div>
+    </div>
+    <script>
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuContent = document.getElementById('mobile-menu-content');
+
+        function toggleMenu() {
+            const isOpen = !mobileMenuOverlay.classList.contains('invisible');
+            if (isOpen) {
+                mobileMenuOverlay.classList.add('opacity-0', 'invisible');
+                mobileMenuContent.classList.add('translate-y-10');
+                document.body.style.overflow = '';
+            } else {
+                mobileMenuOverlay.classList.remove('opacity-0', 'invisible');
+                mobileMenuContent.classList.remove('translate-y-10');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        hamburgerBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+    </script>
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex flex-col pt-32 px-6 md:px-12 overflow-hidden">
+        <div class="architectural-grid w-full">
+            <h1
+                class="col-span-12 md:col-span-10 font-headline text-6xl md:text-[7.5rem] font-bold leading-[0.85] inter-tight z-10 uppercase">
+                Encontre seu novo lar na <span class="text-primary italic">Praia Grande</span></h1>
+        </div>
+        <div class="relative w-full overflow-hidden">
+            <img alt="Arquitetura de luxo" class="w-full h-[50vh] object-cover rounded-lg"
+                data-alt="Modern dark architectural facade in Praia Grande at dusk with glowing interior lights and dramatic coastal atmosphere"
+                src="./imgs/praias-4.jpg" />
+            <div class="absolute bottom-3 right-6 bg-surface p-8 border border-outline/20 rounded-lg">
+                <div class="flex flex-col space-y-8">
+                    <div class="border-t border-outline/30 pt-4">
+                        <span
+                            class="font-label text-[10px] tracking-widest text-outline uppercase block mb-2 font-bold">Tradição</span>
+                        <span class="font-headline text-5xl font-extrabold text-primary tracking-tighter">5</span>
+                        <span
+                            class="font-body text-[10px] text-on-surface-variant block uppercase tracking-[0.2em] mt-1">Anos
+                            de Mercado</span>
+                    </div>
+                    <div class="border-t border-outline/30 pt-4">
+                        <span
+                            class="font-label text-[10px] tracking-widest text-outline uppercase block mb-2 font-bold">Portfólio</span>
+                        <span class="font-headline text-5xl font-extrabold text-primary tracking-tighter">140+</span>
+                        <span
+                            class="font-body text-[10px] text-on-surface-variant block uppercase tracking-[0.2em] mt-1">Opções
+                            Disponíveis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Properties Carousels Section -->
+    <section id="imoveis" class="">
+        <!-- First Carousel: Apartamentos de Luxo -->
+        <div class="mb-32 relative group">
+            <div class="px-6 md:px-12 mb-8 flex justify-between items-end">
+                <h3 class="font-headline text-2xl font-bold uppercase tracking-tighter">Apartamentos de Luxo
+                </h3>
+                <div class="flex space-x-4">
+                    <button
+                        class="w-10 h-10 border border-outline/20 flex items-center justify-center hover:bg-primary/10 transition-colors rounded-full"
+                        onclick="scrollCarousel('carousel-aptos', -1)">
+                        <span class="material-symbols-outlined text-sm">arrow_back_ios_new</span>
+                    </button>
+                    <button
+                        class="w-10 h-10 border border-outline/20 flex items-center justify-center hover:bg-primary/10 transition-colors rounded-full"
+                        onclick="scrollCarousel('carousel-aptos', 1)">
+                        <span class="material-symbols-outlined text-sm">arrow_forward_ios</span>
+                    </button>
+                </div>
+            </div>
+            <div class="flex overflow-x-auto no-scrollbar gap-8 px-6 md:px-12 carousel-container" id="carousel-aptos">
+            </div>
+        </div>
+        <!-- Second Carousel: Casas de Condomínio -->
+        <div class="relative group">
+            <div class="px-6 md:px-12 mb-8 flex justify-between items-end">
+                <h3 class="font-headline text-2xl font-bold uppercase tracking-tighter">Casas de Condomínio
+                </h3>
+                <div class="flex space-x-4">
+                    <button
+                        class="w-10 h-10 border border-outline/20 flex items-center justify-center hover:bg-primary/10 transition-colors rounded-full"
+                        onclick="scrollCarousel('carousel-casas', -1)">
+                        <span class="material-symbols-outlined text-sm">arrow_back_ios_new</span>
+                    </button>
+                    <button
+                        class="w-10 h-10 border border-outline/20 flex items-center justify-center hover:bg-primary/10 transition-colors rounded-full"
+                        onclick="scrollCarousel('carousel-casas', 1)">
+                        <span class="material-symbols-outlined text-sm">arrow_forward_ios</span>
+                    </button>
+                </div>
+            </div>
+            <div class="flex overflow-x-auto no-scrollbar gap-8 px-6 md:px-12 carousel-container" id="carousel-casas">
+            </div>
+        </div>
+    </section>
+    <!-- Testimonials Section -->
+    <section class="py-32 px-6 md:px-12 border-t border-outline/15">
+        <div class="flex flex-col items-center text-center mb-24">
+            <h2 class="font-headline text-4xl font-bold uppercase tracking-tight mb-6">Depoimentos</h2>
+            <p
+                class="font-body text-on-surface-variant text-sm leading-relaxed max-w-sm uppercase tracking-widest font-bold">
+                Vozes que Confiam na Ascendia 13@.</p>
+            <img src="./imgs/Google-Logo.wine.svg" class="w-40" alt="Comentários">
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+            <!-- Testimonial 1 -->
+            <div
+                class="p-8 md:p-12 bg-surface-container rounded-lg border border-outline/10 relative">
+                <span class="absolute top-4 left-4 font-serif text-[80px] text-primary/10 select-none">“</span>
+                <blockquote class="relative z-10">
+                    <p class="font-body text-lg text-on-surface leading-relaxed italic mb-8">
+                        "A curadoria da Ascendia 13@. é impecável. Eles não apenas me venderam um imóvel, eles
+                        encontraram
+                        uma peça de arquitetura que ressoa com meu estilo de vida e vision de futuro."
+                    </p>
+                    <footer class="mt-8 border-t border-outline/10 pt-4">
+                        <cite class="not-italic">
+                            <span class="block font-headline text-sm font-bold uppercase tracking-tighter">Ricardo
+                                Silveira</span>
+                            <span
+                                class="block font-label text-[9px] tracking-[0.2em] text-outline uppercase font-bold">Investidor
+                                e Colecionador</span>
+                        </cite>
+                    </footer>
+                </blockquote>
+            </div>
+            <!-- Testimonial 2 -->
+            <div
+                class="p-8 md:p-12 bg-surface-container rounded-lg border border-outline/10 relative">
+                <span class="absolute top-4 left-4 font-serif text-[80px] text-primary/10 select-none">“</span>
+                <blockquote class="relative z-10">
+                    <p class="font-body text-lg text-on-surface leading-relaxed italic mb-8">
+                        "O nível de discrição e profissionalismo da equipe é o que os diferencia no litoral. Cada
+                        detalhe da negociação foi conduzido com precisão absoluta."
+                    </p>
+                    <footer class="mt-8 border-t border-outline/10 pt-4">
+                        <cite class="not-italic">
+                            <span class="block font-headline text-sm font-bold uppercase tracking-tighter">Beatriz
+                                Cavalcante</span>
+                            <span
+                                class="block font-label text-[9px] tracking-[0.2em] text-outline uppercase font-bold">CEO,
+                                Vision Group</span>
+                        </cite>
+                    </footer>
+                </blockquote>
+            </div>
+            <!-- Testimonial 3 -->
+            <div
+                class="p-8 md:p-12 bg-surface-container rounded-lg border border-outline/10 relative">
+                <span class="absolute top-4 left-4 font-serif text-[80px] text-primary/10 select-none">“</span>
+                <blockquote class="relative z-10">
+                    <p class="font-body text-lg text-on-surface leading-relaxed italic mb-8">
+                        "Encontrar um refúgio brutalista de frente para o mar parecia impossível até conhecer o
+                        portfólio exclusivo da Ascendia 13@. Uma experiência verdadeiramente singular."
+                    </p>
+                    <footer class="mt-8 border-t border-outline/10 pt-4">
+                        <cite class="not-italic">
+                            <span class="block font-headline text-sm font-bold uppercase tracking-tighter">Dr.
+                                Marcos Salles</span>
+                            <span
+                                class="block font-label text-[9px] tracking-[0.2em] text-outline uppercase font-bold">Arquiteto
+                                e Urbanista</span>
+                        </cite>
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+    </section>
+    <!-- Sobre Nós Section -->
+    <section id="sobre-nos" class="py-32 bg-surface-container-lowest relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/2 h-full opacity-10">
+            <img alt="Arquitetura Abstrata" class="w-full h-full object-cover"
+                data-alt="Abstract shadow patterns on a white gallery wall with clean architectural lines"
+                src="./imgs/20251023hjrb04qca.jpg" />
+        </div>
+        <div class="px-6 md:px-12 architectural-grid relative z-10">
+            <div class="col-span-12 md:col-span-6 mb-24 md:mb-0">
+                <h2 class="font-headline text-5xl md:text-7xl font-extrabold leading-[0.9] inter-tight uppercase mb-12">
+                    Sobre<br />Nós<br /><span class="text-[#c4c9ae]">Ascendia 13@.</span></h2>
+                <div class="max-w-md space-y-8">
+                    <p class="font-body text-lg text-on-surface leading-relaxed font-light">
+                        Com mais de 15 anos de atuação em Praia Grande, a Ascendia 13@. consolidou-se como a
+                        autoridade máxima em curadoria de alto padrão. Nossa expertise reside na compreensão profunda de
+                        que um imóvel é mais que uma estrutura; é a materialização de um legado. Unimos rigor estético à
+                        solidez técnica para oferecer apenas o extraordinário.
+                    </p>
+                    <div class="flex items-center space-x-4 border-l-2 border-primary pl-6">
+                        <span class="font-label text-[10px] uppercase tracking-[0.2em] text-outline font-bold">Litoral
+                            de São Paulo Seal of Excellence</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-12 md:col-start-8 md:col-span-5 self-center">
+                <div class="relative">
+                    <img alt="Expertise Ascendia" class="w-full h-[600px] object-cover rounded-lg"
+                        data-alt="Close up of architect's hands reviewing blueprints on a dark marble desk with a view of the ocean"
+                        src="./imgs/imobilaria-hub.png" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contato Section -->
+    <section id="contato" class="py-48 px-6 md:px-12 bg-surface">
+        <div
+            class="max-w-6xl mx-auto architectural-grid bg-surface-container rounded-xl p-8 md:p-24 border border-outline/10">
+            <div class="col-span-12 md:col-span-5 mb-12 md:mb-0">
+                <h2 class="font-headline text-4xl font-bold uppercase tracking-tight mb-8">Inicie sua jornada.
+                </h2>
+                <p class="font-body text-on-surface-variant mb-12">Consulte nossos especialistas para uma
+                    apresentação privada do portfólio Ascendia 13@.</p>
+                <div class="space-y-6 font-label text-[10px] tracking-[0.2em] uppercase font-bold">
+                    <div class="flex items-center space-x-4">
+                        <span class="material-symbols-outlined text-primary">call</span>
+                        <span class="">+55 13 9982.4455</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="material-symbols-outlined text-primary">location_on</span>
+                        <span class="">Praia Grande, SP — Brasil</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-12 md:col-start-7 md:col-span-6">
+                <h3 class="font-headline text-xl font-bold uppercase tracking-tight mb-8">Contato</h3>
+                <form class="space-y-12">
+                    <div class="relative">
+                        <label
+                            class="block font-label text-[10px] text-outline uppercase mb-2 font-bold tracking-widest">Nome
+                            Completo</label>
+                        <input
+                            class="w-full bg-transparent border-0 border-b border-outline focus:border-secondary focus:ring-0 px-0 py-2 transition-colors placeholder-outline/30 font-body text-sm"
+                            placeholder="Ex: Arthur Ascendia" type="text" />
+                    </div>
+                    <div class="relative">
+                        <label
+                            class="block font-label text-[10px] text-outline uppercase mb-2 font-bold tracking-widest">Whatsapp</label>
+                        <input
+                            class="w-full bg-transparent border-0 border-b border-outline focus:border-secondary focus:ring-0 px-0 py-2 transition-colors placeholder-outline/30 font-body text-sm"
+                            placeholder="(13) 99999-9999" type="tel" />
+                    </div>
+                    <div class="relative">
+                        <label
+                            class="block font-label text-[10px] text-outline uppercase mb-2 font-bold tracking-widest">Mensagem</label>
+                        <textarea
+                            class="w-full bg-transparent border-0 border-b border-outline focus:border-secondary focus:ring-0 px-0 py-2 transition-colors placeholder-outline/30 font-body text-sm"
+                            placeholder="Descreva brevemente seu interesse" rows="3"></textarea>
+                    </div>
+                    <button
+                        class="w-full md:w-auto bg-primary text-on-primary px-16 py-4 font-label text-xs tracking-[0.3em] uppercase hover:bg-primary-dim transition-colors duration-500 font-bold rounded-full"
+                        type="submit">
+                        ENVIAR SOLICITAÇÃO
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer
+        class="bg-[#000000] dark:bg-[#000000] w-full border-t border-[#767575]/10 grid grid-cols-1 md:grid-cols-4 gap-12 px-6 md:px-12 py-24 max-w-full">
+        <div class="col-span-1 md:col-span-2">
+            <div class="text-[#c4c9ae] font-headline text-lg mb-8 uppercase tracking-tighter font-extrabold">
+                ASCENDIA 13@.</div>
+            <p class="text-[#767575] font-body leading-relaxed text-[10px] tracking-[0.2em] uppercase max-w-sm">
+                © 2026 Ascendia Curator
+            </p>
+        </div>
+        <div>
+            <h4 class="text-[#c4c9ae] font-label text-[10px] tracking-[0.2em] uppercase mb-6 font-bold">
+                Explorar</h4>
+            <ul class="space-y-4 font-body text-[10px] tracking-[0.2em] uppercase">
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="index.html">Home</a></li>
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="imoveis.html">Imóveis</a></li>
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="sobre-nos.html">Sobre Nós</a></li>
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="contato.html">Contato</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-[#c4c9ae] font-label text-[10px] tracking-[0.2em] uppercase mb-6 font-bold">
+                Redes Sociais</h4>
+            <ul class="space-y-4 font-body text-[10px] tracking-[0.2em] uppercase">
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                <li class=""><a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-200"
+                        href="https://wa.me/5599999999" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        // ===== Custom Popup Feedback =====
+        function showPopup({ title, message, type = 'success' }) {
+            const overlay = document.createElement('div');
+            overlay.className = 'fixed inset-0 flex items-center justify-center z-[9999] p-4 bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-none';
+
+            const isSuccess = type === 'success';
+            const isError = type === 'error';
+
+            let iconColorClass = 'bg-primary/10 text-primary';
+            let iconName = 'check_circle';
+            let buttonBgClass = 'bg-primary text-on-primary';
+
+            if (isError) {
+                iconColorClass = 'bg-error/10 text-error';
+                iconName = 'error';
+                buttonBgClass = 'bg-error text-on-error';
+            } else if (type === 'warning') {
+                iconColorClass = 'bg-secondary/10 text-secondary';
+                iconName = 'warning';
+                buttonBgClass = 'bg-secondary text-on-secondary';
+            }
+
+            overlay.innerHTML = `
+                <div class="bg-surface-container-low border border-outline-variant/20 rounded-2xl p-8 max-w-sm w-full shadow-2xl text-center transform scale-95 opacity-0 transition-all duration-300">
+                    <div class="w-16 h-16 ${iconColorClass} rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="material-symbols-outlined text-3xl font-light">${iconName}</span>
+                    </div>
+                    <h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 uppercase">${title}</h3>
+                    <p class="text-sm text-on-surface-variant mb-6 leading-relaxed">${message}</p>
+                    <button class="w-full ${buttonBgClass} py-4 uppercase text-[10px] tracking-[0.2em] font-bold hover:opacity-90 transition-all rounded-full">
+                        Fechar
+                    </button>
+                </div>
+            `;
+
+            document.body.appendChild(overlay);
+            const content = overlay.querySelector('div');
+            const button = overlay.querySelector('button');
+
+            requestAnimationFrame(() => {
+                overlay.classList.remove('pointer-events-none', 'opacity-0');
+                content.classList.remove('scale-95', 'opacity-0');
+            });
+
+            const closePopup = () => {
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+                content.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    overlay.remove();
+                }, 300);
+            };
+
+            button.addEventListener('click', closePopup);
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) closePopup();
+            });
+        }
+
+        // Inicialização do Lenis (Scroll Suave)
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        // Scroll carousel by one card width + gap
+        function scrollCarousel(carouselId, direction) {
+            const carousel = document.getElementById(carouselId);
+            if (!carousel) return;
+            const card = carousel.querySelector('.carousel-card');
+            if (!card) return;
+            const gap = parseFloat(getComputedStyle(carousel).gap) || 32;
+            const scrollAmount = (card.offsetWidth + gap) * direction;
+
+            const start = carousel.scrollLeft;
+            const end = start + scrollAmount;
+            const duration = 600; // ms
+            const startTime = performance.now();
+
+            function animateScroll(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // EaseInOutCubic
+                const ease = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+                carousel.scrollLeft = start + (end - start) * ease;
+
+                if (progress < 1) {
+                    requestAnimationFrame(animateScroll);
+                }
+            }
+            requestAnimationFrame(animateScroll);
+        }
+
+        // Scroll suave para links internos (âncoras)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    // Fechar menu mobile se estiver aberto
+                    if (typeof toggleMenu === 'function' && !mobileMenuOverlay.classList.contains('invisible')) {
+                        toggleMenu();
+                    }
+                    lenis.scrollTo(target);
+                }
+            });
+        });
+
+        function createImovelCard(imovel) {
+            const fotoUrl = (imovel.fotos && imovel.fotos.length > 0)
+                ? imovel.fotos[0]
+                : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80';
+
+            const suitesStr = imovel.suites ? `${String(imovel.suites).padStart(2, '0')} ${imovel.suites === 1 ? 'Suíte' : 'Suítes'}` : '';
+            const areaStr = imovel.area_total ? `${imovel.area_total} m²` : '';
+
+            const specs = [areaStr, suitesStr].filter(Boolean).join('  |  ');
+
+            return `
+                <a href="sobre-imovel.html?id=${imovel.id}" class="carousel-card group/item block">
+                    <div class="aspect-[3/2] overflow-hidden border border-outline/10 mb-5 rounded-lg relative">
+                        <img alt="${imovel.titulo}"
+                            class="w-full h-full object-cover transition-all duration-700 ease-in-out scale-100 group-hover/item:scale-105"
+                            src="${fotoUrl}" />
+                        ${imovel.status ? `
+                        <div class="absolute top-4 left-4 bg-background/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-outline/15 flex justify-center items-center">
+                            <span class="font-label text-[8px] tracking-[0.2em] uppercase font-bold text-primary">${imovel.status}</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-outline/10 pb-4">
+                        <h4 class="font-headline text-base font-bold uppercase tracking-tight text-on-surface group-hover/item:text-primary transition-colors">${imovel.titulo}</h4>
+                        <div class="flex space-x-4 font-label text-[9px] tracking-[0.2em] uppercase text-on-surface-variant font-bold whitespace-nowrap ml-4">
+                            <span>${specs}</span>
+                        </div>
+                    </div>
+                </a>
+            `;
+        }
+
+        async function carregarImoveis() {
+            const sliderApartamentos = document.getElementById('carousel-aptos');
+            const sliderCasas = document.getElementById('carousel-casas');
+            try {
+                const response = await fetch('/api/imoveis');
+                if (!response.ok) throw new Error('Erro na resposta do servidor');
+                const imoveis = await response.json();
+
+                const apartamentos = [];
+                const casas = [];
+
+                imoveis.forEach(imovel => {
+                    const tipo = (imovel.tipo || '').toLowerCase().trim();
+                    if (tipo.includes('apartamento') || tipo.includes('apto') || tipo.includes('cobertura')) {
+                        apartamentos.push(imovel);
+                    } else if (tipo.includes('casa') || tipo.includes('mansao') || tipo.includes('sobrado') || tipo.includes('villa')) {
+                        casas.push(imovel);
+                    }
+                });
+
+                if (apartamentos.length > 0) {
+                    sliderApartamentos.innerHTML = apartamentos.map(createImovelCard).join('');
+                } else {
+                    sliderApartamentos.innerHTML = `
+                        <p class="text-on-surface-variant/60 uppercase tracking-widest text-xs py-8 px-6">Nenhum apartamento disponível no momento.</p>
+                    `;
+                }
+
+                if (casas.length > 0) {
+                    sliderCasas.innerHTML = casas.map(createImovelCard).join('');
+                } else {
+                    sliderCasas.innerHTML = `
+                        <p class="text-on-surface-variant/60 uppercase tracking-widest text-xs py-8 px-6">Nenhuma casa disponível no momento.</p>
+                    `;
+                }
+            } catch (error) {
+                console.error('Erro ao carregar imóveis:', error);
+                sliderApartamentos.innerHTML = `<p class="text-error uppercase tracking-widest text-xs py-8 px-6">Erro ao carregar apartamentos.</p>`;
+                sliderCasas.innerHTML = `<p class="text-error uppercase tracking-widest text-xs py-8 px-6">Erro ao carregar casas.</p>`;
+            }
+        }
+        carregarImoveis();
+
+        // Envio do formulário de contato
+        const contatoForm = document.querySelector('#contato form');
+        if (contatoForm) {
+            contatoForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const nomeInput = contatoForm.querySelector('input[type="text"]');
+                const whatsappInput = contatoForm.querySelector('input[type="tel"]');
+                const mensagemInput = contatoForm.querySelector('textarea');
+                const submitButton = contatoForm.querySelector('button[type="submit"]');
+
+                const payload = {
+                    nome: nomeInput.value.trim(),
+                    whatsapp: whatsappInput.value.trim(),
+                    mensagem: mensagemInput.value.trim()
+                };
+
+                if (!payload.nome || !payload.whatsapp) {
+                    showPopup({
+                        title: 'Atenção',
+                        message: 'Por favor, preencha o Nome e o Whatsapp.',
+                        type: 'warning'
+                    });
+                    return;
+                }
+
+                const telefoneLimpo = payload.whatsapp.replace(/\D/g, '');
+                if (telefoneLimpo.length < 10 || telefoneLimpo.length > 11) {
+                    showPopup({
+                        title: 'Número Inválido',
+                        message: 'Por favor, insira um número de Whatsapp válido com DDD (ex: (13) 99999-9999).',
+                        type: 'warning'
+                    });
+                    return;
+                }
+
+                try {
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'ENVIANDO...';
+
+                    const response = await fetch('/api/contatos', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        showPopup({
+                            title: 'Sucesso!',
+                            message: 'Sua solicitação foi enviada com sucesso! Retornaremos em breve.',
+                            type: 'success'
+                        });
+                        contatoForm.reset();
+                    } else {
+                        throw new Error(result.error || 'Erro desconhecido');
+                    }
+                } catch (error) {
+                    console.error('Erro ao enviar contato:', error);
+                    showPopup({
+                        title: 'Erro',
+                        message: 'Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.',
+                        type: 'error'
+                    });
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'ENVIAR SOLICITAÇÃO';
+                }
+            });
+        }
+
+        // Máscara dinâmica para inputs de telefone/whatsapp brasileiro
+        document.querySelectorAll('input[type="tel"]').forEach(input => {
+            input.addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 11) value = value.slice(0, 11);
+
+                if (value.length > 10) {
+                    e.target.value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+                } else if (value.length > 6) {
+                    e.target.value = `(${value.slice(0, 2)}) ${value.slice(2, 6)}-${value.slice(6)}`;
+                } else if (value.length > 2) {
+                    e.target.value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+                } else if (value.length > 0) {
+                    e.target.value = `(${value}`;
+                } else {
+                    e.target.value = '';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
