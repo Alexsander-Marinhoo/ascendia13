@@ -455,6 +455,7 @@
                     <span class="bg-background/60 backdrop-blur-md px-2 py-1 md:px-3 md:py-1.5 text-on-surface text-[8px] md:text-[9px] tracking-widest uppercase rounded-full border border-outline/15">${imovel.status}</span>
                 </div>
             ` : '';
+            const precoStr = (imovel.preco && Number(imovel.preco) > 0) ? Number(imovel.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : 'Sob Consulta';
 
             const delay = (index % itemsPerPage) * 0.1;
 
@@ -467,8 +468,11 @@
                         ${statusBadge}
                     </div>
                     <div>
-                        <h3 class="font-headline text-sm md:text-lg mb-1 md:mb-2 text-on-surface group-hover:text-primary transition-colors uppercase tracking-tight line-clamp-2">
-                            ${imovel.titulo}</h3>
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-1 md:gap-4 mb-1 md:mb-2">
+                            <h3 class="font-headline text-sm md:text-lg text-on-surface group-hover:text-primary transition-colors uppercase tracking-tight line-clamp-2">
+                                ${imovel.titulo}</h3>
+                            <span class="font-headline font-bold text-secondary text-sm md:text-base whitespace-nowrap">${precoStr}</span>
+                        </div>
                         <div class="flex justify-between items-center w-full">
                             <p class="font-label text-[8px] md:text-[9px] text-outline tracking-[0.15em] uppercase flex items-center gap-1.5 md:gap-2 flex-wrap font-bold">
                                 ${specsHTML}
