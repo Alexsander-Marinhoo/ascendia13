@@ -974,6 +974,10 @@
             if (!swiperLightbox) {
                 swiperLightbox = new Swiper('.swiper-lightbox', {
                     zoom: true,
+                    speed: 300,
+                    spaceBetween: 30,
+                    observer: true,
+                    observeParents: true,
                     navigation: {
                         nextEl: '.swiper-button-next.next',
                         prevEl: '.swiper-button-prev.prev',
