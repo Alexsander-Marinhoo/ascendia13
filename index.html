@@ -629,7 +629,7 @@
             const specs = [areaStr, suitesStr].filter(Boolean).join('  |  ');
 
             return `
-                <a href="sobre-imovel.html?id=${imovel.id}" class="swiper-slide group/item block w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]">
+                <a href="sobre-imovel.html?id=${imovel.id}" class="swiper-slide group/item block w-[40%] sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]">
                     <div class="aspect-[3/2] overflow-hidden border border-outline/10 mb-5 rounded-lg relative">
                         <img alt="${imovel.titulo}"
                             class="w-full h-full object-cover transition-all duration-700 ease-in-out scale-100 group-hover/item:scale-105"
@@ -640,9 +640,9 @@
                         </div>
                         ` : ''}
                     </div>
-                    <div class="flex justify-between items-baseline border-b border-outline/10 pb-4">
-                        <h4 class="font-headline text-base font-bold uppercase tracking-tight text-on-surface group-hover/item:text-primary transition-colors">${imovel.titulo}</h4>
-                        <div class="flex space-x-4 font-label text-[9px] tracking-[0.2em] uppercase text-on-surface-variant font-bold whitespace-nowrap ml-4">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline border-b border-outline/10 pb-4 gap-1 sm:gap-4">
+                        <h4 class="font-headline text-sm sm:text-base font-bold uppercase tracking-tight text-on-surface group-hover/item:text-primary transition-colors">${imovel.titulo}</h4>
+                        <div class="flex space-x-4 font-label text-[9px] tracking-[0.2em] uppercase text-on-surface-variant font-bold whitespace-nowrap">
                             <span>${specs}</span>
                         </div>
                     </div>
@@ -673,7 +673,15 @@
                     sliderApartamentos.innerHTML = apartamentos.map(createImovelCard).join('');
                     new Swiper('.swiper-aptos', {
                         slidesPerView: 'auto',
-                        spaceBetween: 32,
+                        spaceBetween: 16,
+                        breakpoints: {
+                            640: {
+                                spaceBetween: 24
+                            },
+                            1024: {
+                                spaceBetween: 32
+                            }
+                        },
                         speed: 300,
                         observer: true,
                         observeParents: true,
@@ -692,7 +700,15 @@
                     sliderCasas.innerHTML = casas.map(createImovelCard).join('');
                     new Swiper('.swiper-casas', {
                         slidesPerView: 'auto',
-                        spaceBetween: 32,
+                        spaceBetween: 16,
+                        breakpoints: {
+                            640: {
+                                spaceBetween: 24
+                            },
+                            1024: {
+                                spaceBetween: 32
+                            }
+                        },
                         speed: 300,
                         observer: true,
                         observeParents: true,
