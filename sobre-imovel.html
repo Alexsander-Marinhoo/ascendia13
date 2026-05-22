@@ -342,16 +342,24 @@
                 right: 16px;
             }
         }
+
+        #mobile-menu-overlay {
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        #mobile-menu-content {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
     </style>
 </head>
 
 <body
     class="bg-surface-dim text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
-    <!-- TopNavBar -->
     <nav
         class="fixed top-0 w-full z-50 bg-transparent backdrop-blur-xl dark:bg-[#0e0e0e]/60 border-b border-[#767575]/15 flex justify-between items-center px-6 md:px-12 py-6 w-full">
-        <div class="text-xl font-extrabold tracking-tighter text-[#c4c9ae] font-headline uppercase">ASCENDIA 13@.
-        </div>
+        <a href="index.html"
+            class="text-xl font-extrabold tracking-tighter text-[#c4c9ae] font-headline uppercase hover:opacity-80 transition-opacity">ASCENDIA
+            13@.</a>
         <!-- Desktop Links -->
         <div class="hidden desktop-nav:flex space-x-12">
             <a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-300 font-body tracking-tight text-xs uppercase"
@@ -364,23 +372,24 @@
                 href="contato.html">Contato</a>
         </div>
         <!-- Desktop CTA -->
-        <button
-            class="hidden desktop-nav:block bg-primary text-on-primary px-8 py-2 font-label text-xs tracking-widest uppercase hover:opacity-80 transition-opacity font-bold rounded-full">Falar
-            com Imobiliária</button>
+        <a href="contato.html"
+            class="hidden desktop-nav:block bg-primary text-on-primary px-8 py-2 font-label text-xs tracking-widest uppercase hover:opacity-80 transition-opacity font-bold rounded-full text-center">Falar
+            com Imobiliária</a>
         <!-- Mobile Hamburger Menu Button -->
         <button class="desktop-nav:hidden flex items-center justify-center text-primary p-2" id="hamburger-btn">
             <span class="material-symbols-outlined text-3xl">menu</span>
         </button>
     </nav>
     <!-- Mobile Menu Overlay -->
-    <div class="fixed inset-0 z-[60] bg-background/95 backdrop-blur-2xl opacity-0 invisible flex flex-col items-center justify-center"
+    <div class="fixed inset-0 z-[60] bg-background/95 backdrop-blur-2xl opacity-0 invisible flex flex-col items-center justify-center transition-all duration-300 ease-in-out"
         id="mobile-menu-overlay">
         <button class="absolute top-6 right-6 text-primary p-2" id="close-menu-btn">
             <span class="material-symbols-outlined text-4xl">close</span>
         </button>
-        <div class="flex flex-col items-center space-y-8 transform translate-y-10" id="mobile-menu-content">
-            <div class="text-[#c4c9ae] font-headline text-2xl font-extrabold tracking-tighter uppercase mb-8">ASCENDIA
-                13@.</div>
+        <div class="flex flex-col items-center space-y-8 transform translate-y-10 transition-all duration-300 ease-out delay-100" id="mobile-menu-content">
+            <a href="index.html"
+                class="text-[#c4c9ae] font-headline text-2xl font-extrabold tracking-tighter uppercase mb-8 hover:opacity-80 transition-opacity block">ASCENDIA
+                13@.</a>
             <a class="text-on-surface text-xl uppercase tracking-widest font-headline font-bold hover:text-primary transition-colors"
                 href="index.html" onclick="toggleMenu()">Início</a>
             <a class="text-primary text-xl uppercase tracking-widest font-headline font-bold border-b-2 border-primary"
@@ -389,9 +398,9 @@
                 href="sobre-nos.html" onclick="toggleMenu()">Sobre Nós</a>
             <a class="text-on-surface text-xl uppercase tracking-widest font-headline font-bold hover:text-primary transition-colors"
                 href="contato.html" onclick="toggleMenu()">Contato</a>
-            <button
-                class="mt-8 bg-primary text-on-primary px-10 py-4 font-label text-sm tracking-[0.2em] uppercase font-bold rounded-full shadow-xl"
-                onclick="toggleMenu()">Falar com Imobiliária</button>
+            <a href="contato.html"
+                class="mt-8 bg-primary text-on-primary px-10 py-4 font-label text-sm tracking-[0.2em] uppercase font-bold rounded-full shadow-xl text-center">Falar
+                com Imobiliária</a>
         </div>
     </div>
     <script>
@@ -449,7 +458,7 @@
                         <span class="font-label text-primary text-[10px] tracking-[0.4em] uppercase mb-4 block">Listagem
                             Exclusiva</span>
                         <h1 id="imovel-titulo"
-                            class="text-5xl md:text-8xl font-bold tracking-tighter text-on-surface leading-none uppercase">
+                            class="text-4xl md:text-8xl font-bold tracking-tighter text-on-surface leading-none uppercase">
                         </h1>
                     </div>
                     <div
@@ -555,12 +564,12 @@
 
                 <!-- Sidebar / Contact -->
                 <aside class="lg:col-span-5 lg:sticky lg:top-32">
-                    <div class="bg-surface-container-low p-12 border border-outline-variant/10 rounded-xl">
+                    <div class="bg-surface-container-low p-6 sm:p-12 border border-outline-variant/10 rounded-xl">
                         <h3 class="text-3xl font-bold tracking-tighter mb-2 uppercase">Solicitar Atendimento</h3>
                         <p class="text-[10px] text-on-surface-variant uppercase tracking-widest mb-12 font-semibold">
                             Acesso
                             Exclusivo ao Concierge</p>
-                        <form class="space-y-10">
+                        <form class="space-y-6 md:space-y-10">
                             <div class="relative group">
                                 <label
                                     class="block text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-3 group-focus-within:text-primary transition-colors font-bold">Nome
@@ -585,35 +594,42 @@
                             </div>
                             <div class="pt-8">
                                 <button type="submit"
-                                    class="w-full bg-primary text-on-primary py-6 uppercase text-xs tracking-[0.3em] font-bold hover:opacity-90 transition-all rounded-full">
+                                    class="w-full bg-primary text-on-primary py-4 md:py-6 uppercase text-xs tracking-[0.3em] font-bold hover:opacity-90 transition-all rounded-full">
                                     enviar mensagem para o corretor
                                 </button>
                             </div>
                         </form>
                         <!-- Botão WhatsApp -->
                         <a id="whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer"
-                            class="hidden mt-6 w-full bg-[#25D366] text-white py-5 uppercase text-xs tracking-[0.3em] font-bold hover:bg-[#1fb855] transition-all rounded-full flex items-center justify-center gap-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="currentColor">
-                                <path
-                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                            </svg>
-                            <span>Chamar no WhatsApp</span>
+                            class="mt-6 w-full bg-[#25D366] text-white py-4 md:py-5 uppercase text-xs tracking-[0.3em] font-bold hover:bg-[#1fb855] transition-all rounded-full flex items-center justify-center px-4"
+                            style="display: none;">
+                            <span class="inline-flex items-center text-left gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="currentColor" class="flex-shrink-0">
+                                    <path
+                                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                                </svg>
+                                <span class="leading-normal">Chamar no WhatsApp</span>
+                            </span>
                         </a>
-                        <div class="mt-12 pt-12 border-t border-outline-variant/10 flex items-center justify-between">
-                            <div class="flex -space-x-3">
-                                <div
-                                    class="w-12 h-12 bg-surface-container-high border-2 border-surface-container-low flex items-center justify-center rounded-full">
-                                    <span class="material-symbols-outlined text-sm">headset_mic</span>
+                        <!-- Seção Corretor Responsável -->
+                        <div id="corretor-secao" class="mt-12 pt-12 border-t border-outline-variant/10 flex flex-col gap-6" style="display: none;">
+                            <p class="text-[10px] text-on-surface-variant uppercase tracking-[0.2em] font-bold">
+                                Corretor Responsável
+                            </p>
+                            <div class="flex items-center gap-6">
+                                <!-- Foto do Corretor -->
+                                <div class="relative group">
+                                    <div class="absolute -inset-0.5 bg-gradient-to-r from-primary to-surface-tint rounded-full opacity-30 group-hover:opacity-100 transition duration-300 blur-sm"></div>
+                                    <img id="corretor-foto" src="" alt="Foto do Corretor"
+                                        class="relative w-16 h-16 rounded-full object-cover border-2 border-outline-variant/20 shadow-lg" />
                                 </div>
-                                <div
-                                    class="w-12 h-12 bg-surface-container-high border-2 border-surface-container-low flex items-center justify-center rounded-full">
-                                    <span class="material-symbols-outlined text-sm">calendar_today</span>
+                                <!-- Informações do Corretor -->
+                                <div>
+                                    <h4 id="corretor-nome" class="text-sm font-bold tracking-tighter text-on-surface uppercase font-headline"></h4>
+                                    <p id="corretor-creci" class="text-[10px] tracking-widest text-primary uppercase font-semibold mt-1 font-label"></p>
                                 </div>
                             </div>
-                            <p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Resposta
-                                em
-                                até 2 horas</p>
                         </div>
                     </div>
                 </aside>
@@ -655,26 +671,7 @@
             </ul>
         </div>
     </footer>
-    <!-- Mobile Navigation -->
-    <nav
-        class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-[#0e0e0e]/90 backdrop-blur-lg border-t border-[#767575]/15">
-        <a class="flex flex-col items-center justify-center text-[#767575] hover:text-[#c4c9ae]" href="#">
-            <span class="material-symbols-outlined">photo_library</span>
-            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1">Galeria</span>
-        </a>
-        <a class="flex flex-col items-center justify-center text-[#c4c9ae] scale-105" href="#">
-            <span class="material-symbols-outlined">list_alt</span>
-            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1">Detalhes</span>
-        </a>
-        <a class="flex flex-col items-center justify-center text-[#767575] hover:text-[#c4c9ae]" href="#">
-            <span class="material-symbols-outlined">location_on</span>
-            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1">Mapa</span>
-        </a>
-        <a class="flex flex-col items-center justify-center text-[#767575] hover:text-[#c4c9ae]" href="#">
-            <span class="material-symbols-outlined">mail</span>
-            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1">Contato</span>
-        </a>
-    </nav>
+
 
     <!-- Lightbox / Fullscreen Image Viewer -->
     <div id="lightbox-overlay" class="lightbox-overlay" onclick="lightboxHandleOverlayClick(event)">
@@ -724,14 +721,14 @@
         function showPopup({ title, message, type = 'success' }) {
             const overlay = document.createElement('div');
             overlay.className = 'fixed inset-0 flex items-center justify-center z-[9999] p-4 bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-none';
-            
+
             const isSuccess = type === 'success';
             const isError = type === 'error';
-            
+
             let iconColorClass = 'bg-primary/10 text-primary';
             let iconName = 'check_circle';
             let buttonBgClass = 'bg-primary text-on-primary';
-            
+
             if (isError) {
                 iconColorClass = 'bg-error/10 text-error';
                 iconName = 'error';
@@ -741,7 +738,7 @@
                 iconName = 'warning';
                 buttonBgClass = 'bg-secondary text-on-secondary';
             }
-            
+
             overlay.innerHTML = `
                 <div class="bg-surface-container-low border border-outline-variant/20 rounded-2xl p-8 max-w-sm w-full shadow-2xl text-center transform scale-95 opacity-0 transition-all duration-300">
                     <div class="w-16 h-16 ${iconColorClass} rounded-full flex items-center justify-center mx-auto mb-6">
@@ -754,16 +751,16 @@
                     </button>
                 </div>
             `;
-            
+
             document.body.appendChild(overlay);
             const content = overlay.querySelector('div');
             const button = overlay.querySelector('button');
-            
+
             requestAnimationFrame(() => {
                 overlay.classList.remove('pointer-events-none', 'opacity-0');
                 content.classList.remove('scale-95', 'opacity-0');
             });
-            
+
             const closePopup = () => {
                 overlay.classList.add('opacity-0', 'pointer-events-none');
                 content.classList.add('scale-95', 'opacity-0');
@@ -771,7 +768,7 @@
                     overlay.remove();
                 }, 300);
             };
-            
+
             button.addEventListener('click', closePopup);
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) closePopup();
@@ -1292,7 +1289,23 @@
                     const mensagemWhatsapp = `Olá, vi o anúncio *${nomeAnuncio}* e me interessei, pode me retornar?\n\n${linkImovel}`;
                     // Montar link do WhatsApp
                     whatsappBtn.href = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagemWhatsapp)}`;
-                    whatsappBtn.classList.remove('hidden');
+                    whatsappBtn.style.display = 'flex';
+                }
+
+                // Configurar corretor responsável
+                if (imovel.corretores) {
+                    const corretorSecao = document.getElementById('corretor-secao');
+                    const corretorFoto = document.getElementById('corretor-foto');
+                    const corretorNome = document.getElementById('corretor-nome');
+                    const corretorCreci = document.getElementById('corretor-creci');
+
+                    if (corretorSecao && corretorFoto && corretorNome && corretorCreci) {
+                        corretorFoto.src = imovel.corretores.img || 'https://mwvmgawldzvwngrlyccr.supabase.co/storage/v1/object/public/imgs_corretores/placeholder.jpg';
+                        corretorFoto.alt = `Foto de ${imovel.corretores.nome || 'Corretor'}`;
+                        corretorNome.textContent = imovel.corretores.nome || 'Corretor Responsável';
+                        corretorCreci.textContent = imovel.corretores.creci ? `CRECI: ${imovel.corretores.creci}` : 'CRECI não informado';
+                        corretorSecao.style.display = 'flex';
+                    }
                 }
 
                 // Mostrar conteúdo
@@ -1391,7 +1404,7 @@
             input.addEventListener('input', (e) => {
                 let value = e.target.value.replace(/\D/g, '');
                 if (value.length > 11) value = value.slice(0, 11);
-                
+
                 if (value.length > 10) {
                     e.target.value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
                 } else if (value.length > 6) {

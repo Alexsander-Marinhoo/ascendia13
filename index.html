@@ -190,11 +190,11 @@
 </head>
 
 <body class="font-body">
-    <!-- TopNavBar -->
     <nav
         class="fixed top-0 w-full z-50 bg-transparent backdrop-blur-xl dark:bg-[#0e0e0e]/60 border-b border-[#767575]/15 flex justify-between items-center px-6 md:px-12 py-6 w-full">
-        <div class="text-xl font-extrabold tracking-tighter text-[#c4c9ae] font-headline uppercase">ASCENDIA 13@.
-        </div>
+        <a href="index.html"
+            class="text-xl font-extrabold tracking-tighter text-[#c4c9ae] font-headline uppercase hover:opacity-80 transition-opacity">ASCENDIA
+            13@.</a>
         <!-- Desktop Links -->
         <div class="hidden desktop-nav:flex space-x-12">
             <a class="text-[#c4c9ae] border-b border-[#c4c9ae] pb-1 font-body tracking-tight text-xs uppercase font-semibold"
@@ -207,23 +207,25 @@
                 href="contato.html">Contato</a>
         </div>
         <!-- Desktop CTA -->
-        <button
-            class="hidden desktop-nav:block bg-primary text-on-primary px-8 py-2 font-label text-xs tracking-widest uppercase hover:opacity-80 transition-opacity font-bold rounded-full"
-            onclick="lenis.scrollTo('#contato')">Falar com Imobiliária</button>
+        <a href="contato.html"
+            class="hidden desktop-nav:block bg-primary text-on-primary px-8 py-2 font-label text-xs tracking-widest uppercase hover:opacity-80 transition-opacity font-bold rounded-full text-center">Falar
+            com Imobiliária</a>
         <!-- Mobile Hamburger Menu Button -->
         <button class="desktop-nav:hidden flex items-center justify-center text-primary p-2" id="hamburger-btn">
             <span class="material-symbols-outlined text-3xl">menu</span>
         </button>
     </nav>
     <!-- Mobile Menu Overlay -->
-    <div class="fixed inset-0 z-[60] bg-background/95 backdrop-blur-2xl opacity-0 invisible flex flex-col items-center justify-center"
+    <div class="fixed inset-0 z-[60] bg-background/95 backdrop-blur-2xl opacity-0 invisible flex flex-col items-center justify-center transition-all duration-300 ease-in-out"
         id="mobile-menu-overlay">
         <button class="absolute top-6 right-6 text-primary p-2" id="close-menu-btn">
             <span class="material-symbols-outlined text-4xl">close</span>
         </button>
-        <div class="flex flex-col items-center space-y-8 transform translate-y-10" id="mobile-menu-content">
-            <div class="text-[#c4c9ae] font-headline text-2xl font-extrabold tracking-tighter uppercase mb-8">ASCENDIA
-                13@.</div>
+        <div class="flex flex-col items-center space-y-8 transform translate-y-10 transition-all duration-300 ease-out delay-100"
+            id="mobile-menu-content">
+            <a href="index.html"
+                class="text-[#c4c9ae] font-headline text-2xl font-extrabold tracking-tighter uppercase mb-8 hover:opacity-80 transition-opacity block">ASCENDIA
+                13@.</a>
             <a class="text-primary text-xl uppercase tracking-widest font-headline font-bold border-b-2 border-primary"
                 href="index.html" onclick="toggleMenu()">Início</a>
             <a class="text-on-surface text-xl uppercase tracking-widest font-headline font-bold hover:text-primary transition-colors"
@@ -232,9 +234,9 @@
                 href="sobre-nos.html" onclick="toggleMenu()">Sobre Nós</a>
             <a class="text-on-surface text-xl uppercase tracking-widest font-headline font-bold hover:text-primary transition-colors"
                 href="contato.html" onclick="toggleMenu()">Contato</a>
-            <button
-                class="mt-8 bg-primary text-on-primary px-10 py-4 font-label text-sm tracking-[0.2em] uppercase font-bold rounded-full shadow-xl"
-                onclick="toggleMenu(); lenis.scrollTo('#contato')">Falar com Imobiliária</button>
+            <a href="contato.html"
+                class="mt-8 bg-primary text-on-primary px-10 py-4 font-label text-sm tracking-[0.2em] uppercase font-bold rounded-full shadow-xl text-center">Falar
+                com Imobiliária</a>
         </div>
     </div>
     <script>
@@ -260,10 +262,10 @@
         closeMenuBtn.addEventListener('click', toggleMenu);
     </script>
     <!-- Hero Section -->
-    <section id="hero" class="relative min-h-screen flex flex-col pt-32 px-6 md:px-12 overflow-hidden">
+    <section id="hero" class="relative flex flex-col pt-32 pb-8 lg:pb-16 px-6 md:px-12 overflow-hidden">
         <div class="architectural-grid w-full">
             <h1
-                class="col-span-12 md:col-span-10 font-headline text-6xl md:text-[7.5rem] font-bold leading-[0.85] inter-tight z-10 uppercase">
+                class="col-span-12 md:col-span-10 font-headline text-4xl md:text-[7.5rem] font-bold leading-[0.85] inter-tight z-10 uppercase">
                 Encontre seu novo lar na <span class="text-primary italic">Praia Grande</span></h1>
         </div>
         <div class="relative w-full overflow-hidden">
@@ -275,7 +277,8 @@
                     <div class="border-t border-outline/30 pt-4">
                         <span
                             class="font-label text-[10px] tracking-widest text-outline uppercase block mb-2 font-bold">Tradição</span>
-                        <span class="font-headline text-5xl font-extrabold text-primary tracking-tighter">5</span>
+                        <span
+                            class="font-headline text-4xl md:text-5xl font-extrabold text-primary tracking-tighter">5</span>
                         <span
                             class="font-body text-[10px] text-on-surface-variant block uppercase tracking-[0.2em] mt-1">Anos
                             de Mercado</span>
@@ -283,7 +286,8 @@
                     <div class="border-t border-outline/30 pt-4">
                         <span
                             class="font-label text-[10px] tracking-widest text-outline uppercase block mb-2 font-bold">Portfólio</span>
-                        <span class="font-headline text-5xl font-extrabold text-primary tracking-tighter">140+</span>
+                        <span
+                            class="font-headline text-4xl md:text-5xl font-extrabold text-primary tracking-tighter">140+</span>
                         <span
                             class="font-body text-[10px] text-on-surface-variant block uppercase tracking-[0.2em] mt-1">Opções
                             Disponíveis</span>
@@ -340,7 +344,7 @@
     <!-- Testimonials Section -->
     <section class="py-32 px-6 md:px-12 border-t border-outline/15">
         <div class="flex flex-col items-center text-center mb-24">
-            <h2 class="font-headline text-4xl font-bold uppercase tracking-tight mb-6">Depoimentos</h2>
+            <h2 class="font-headline text-3xl md:text-4xl font-bold uppercase tracking-tight mb-6">Depoimentos</h2>
             <p
                 class="font-body text-on-surface-variant text-sm leading-relaxed max-w-sm uppercase tracking-widest font-bold">
                 Vozes que Confiam na Ascendia 13@.</p>
@@ -348,8 +352,7 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             <!-- Testimonial 1 -->
-            <div
-                class="p-8 md:p-12 bg-surface-container rounded-lg border border-outline/10 relative">
+            <div class="p-8 md:p-12 bg-surface-container rounded-lg border border-outline/10 relative">
                 <span class="absolute top-4 left-4 font-serif text-[80px] text-primary/10 select-none">“</span>
                 <blockquote class="relative z-10">
                     <p class="font-body text-lg text-on-surface leading-relaxed italic mb-8">
@@ -369,8 +372,7 @@
                 </blockquote>
             </div>
             <!-- Testimonial 2 -->
-            <div
-                class="p-8 md:p-12 bg-surface-container rounded-lg border border-outline/10 relative">
+            <div class="p-8 md:p-12 bg-surface-container rounded-lg border border-outline/10 relative">
                 <span class="absolute top-4 left-4 font-serif text-[80px] text-primary/10 select-none">“</span>
                 <blockquote class="relative z-10">
                     <p class="font-body text-lg text-on-surface leading-relaxed italic mb-8">
@@ -389,8 +391,7 @@
                 </blockquote>
             </div>
             <!-- Testimonial 3 -->
-            <div
-                class="p-8 md:p-12 bg-surface-container rounded-lg border border-outline/10 relative">
+            <div class="p-8 md:p-12 bg-surface-container rounded-lg border border-outline/10 relative">
                 <span class="absolute top-4 left-4 font-serif text-[80px] text-primary/10 select-none">“</span>
                 <blockquote class="relative z-10">
                     <p class="font-body text-lg text-on-surface leading-relaxed italic mb-8">
@@ -419,7 +420,7 @@
         </div>
         <div class="px-6 md:px-12 architectural-grid relative z-10">
             <div class="col-span-12 md:col-span-6 mb-24 md:mb-0">
-                <h2 class="font-headline text-5xl md:text-7xl font-extrabold leading-[0.9] inter-tight uppercase mb-12">
+                <h2 class="font-headline text-3xl md:text-7xl font-extrabold leading-[0.9] inter-tight uppercase mb-12">
                     Sobre<br />Nós<br /><span class="text-[#c4c9ae]">Ascendia 13@.</span></h2>
                 <div class="max-w-md space-y-8">
                     <p class="font-body text-lg text-on-surface leading-relaxed font-light">
@@ -436,7 +437,7 @@
             </div>
             <div class="col-span-12 md:col-start-8 md:col-span-5 self-center">
                 <div class="relative">
-                    <img alt="Expertise Ascendia" class="w-full h-[600px] object-cover rounded-lg"
+                    <img alt="Expertise Ascendia" class="w-full h-[300px] md:h-[600px] object-cover rounded-lg"
                         data-alt="Close up of architect's hands reviewing blueprints on a dark marble desk with a view of the ocean"
                         src="/imgs/imobilaria-hub.png" />
                 </div>
@@ -448,7 +449,8 @@
         <div
             class="max-w-6xl mx-auto architectural-grid bg-surface-container rounded-xl p-8 md:p-24 border border-outline/10">
             <div class="col-span-12 md:col-span-5 mb-12 md:mb-0">
-                <h2 class="font-headline text-4xl font-bold uppercase tracking-tight mb-8">Inicie sua jornada.
+                <h2 class="font-headline text-3xl md:text-4xl font-bold uppercase tracking-tight mb-8">Inicie sua
+                    jornada.
                 </h2>
                 <p class="font-body text-on-surface-variant mb-12">Consulte nossos especialistas para uma
                     apresentação privada do portfólio Ascendia 13@.</p>
@@ -465,7 +467,7 @@
             </div>
             <div class="col-span-12 md:col-start-7 md:col-span-6">
                 <h3 class="font-headline text-xl font-bold uppercase tracking-tight mb-8">Contato</h3>
-                <form class="space-y-12">
+                <form class="space-y-6 md:space-y-12">
                     <div class="relative">
                         <label
                             class="block font-label text-[10px] text-outline uppercase mb-2 font-bold tracking-widest">Nome
@@ -535,7 +537,7 @@
 
     <script type="module">
         import { supabase } from '/src/supabase.js';
-        
+
         // ===== Custom Popup Feedback =====
         function showPopup({ title, message, type = 'success' }) {
             const overlay = document.createElement('div');

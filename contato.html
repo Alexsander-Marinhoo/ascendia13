@@ -130,15 +130,21 @@
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
+
+        #mobile-menu-overlay {
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        #mobile-menu-content {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
     </style>
 </head>
 
 <body class="bg-background text-on-surface selection:bg-primary selection:text-on-primary">
-    <!-- TopNavBar -->
     <nav
         class="fixed top-0 w-full z-50 bg-transparent backdrop-blur-xl dark:bg-[#0e0e0e]/60 border-b border-[#767575]/15 flex justify-between items-center px-6 md:px-12 py-6 w-full">
-        <div class="text-xl font-extrabold tracking-tighter text-[#c4c9ae] font-headline uppercase">ASCENDIA 13@.
-        </div>
+        <a href="index.html" class="text-xl font-extrabold tracking-tighter text-[#c4c9ae] font-headline uppercase hover:opacity-80 transition-opacity">ASCENDIA 13@.</a>
         <!-- Desktop Links -->
         <div class="hidden desktop-nav:flex space-x-12">
             <a class="text-[#767575] hover:text-[#c4c9ae] transition-colors duration-300 font-body tracking-tight text-xs uppercase"
@@ -151,23 +157,22 @@
                 href="contato.html">Contato</a>
         </div>
         <!-- Desktop CTA -->
-        <button
-            class="hidden desktop-nav:block bg-primary text-on-primary px-8 py-2 font-label text-xs tracking-widest uppercase hover:opacity-80 transition-opacity font-bold rounded-full">Falar
-            com Imobiliária</button>
+        <a href="contato.html"
+            class="hidden desktop-nav:block bg-primary text-on-primary px-8 py-2 font-label text-xs tracking-widest uppercase hover:opacity-80 transition-opacity font-bold rounded-full text-center">Falar com Imobiliária</a>
         <!-- Mobile Hamburger Menu Button -->
         <button class="desktop-nav:hidden flex items-center justify-center text-primary p-2" id="hamburger-btn">
             <span class="material-symbols-outlined text-3xl">menu</span>
         </button>
     </nav>
     <!-- Mobile Menu Overlay -->
-    <div class="fixed inset-0 z-[60] bg-background/95 backdrop-blur-2xl opacity-0 invisible flex flex-col items-center justify-center"
+    <div class="fixed inset-0 z-[60] bg-background/95 backdrop-blur-2xl opacity-0 invisible flex flex-col items-center justify-center transition-all duration-300 ease-in-out"
         id="mobile-menu-overlay">
         <button class="absolute top-6 right-6 text-primary p-2" id="close-menu-btn">
             <span class="material-symbols-outlined text-4xl">close</span>
         </button>
-        <div class="flex flex-col items-center space-y-8 transform translate-y-10" id="mobile-menu-content">
-            <div class="text-[#c4c9ae] font-headline text-2xl font-extrabold tracking-tighter uppercase mb-8">ASCENDIA
-                13@.</div>
+        <div class="flex flex-col items-center space-y-8 transform translate-y-10 transition-all duration-300 ease-out delay-100" id="mobile-menu-content">
+            <a href="index.html" class="text-[#c4c9ae] font-headline text-2xl font-extrabold tracking-tighter uppercase mb-8 hover:opacity-80 transition-opacity block">ASCENDIA
+                13@.</a>
             <a class="text-on-surface text-xl uppercase tracking-widest font-headline font-bold hover:text-primary transition-colors"
                 href="index.html" onclick="toggleMenu()">Início</a>
             <a class="text-on-surface text-xl uppercase tracking-widest font-headline font-bold hover:text-primary transition-colors"
@@ -176,9 +181,8 @@
                 href="sobre-nos.html" onclick="toggleMenu()">Sobre Nós</a>
             <a class="text-primary text-xl uppercase tracking-widest font-headline font-bold border-b-2 border-primary"
                 href="contato.html" onclick="toggleMenu()">Contato</a>
-            <button
-                class="mt-8 bg-primary text-on-primary px-10 py-4 font-label text-sm tracking-[0.2em] uppercase font-bold rounded-full shadow-xl"
-                onclick="toggleMenu()">Falar com Imobiliária</button>
+            <a href="contato.html"
+                class="mt-8 bg-primary text-on-primary px-10 py-4 font-label text-sm tracking-[0.2em] uppercase font-bold rounded-full shadow-xl text-center">Falar com Imobiliária</a>
         </div>
     </div>
     <script>
@@ -209,7 +213,7 @@
             <p class="font-label text-xs uppercase tracking-[0.3em] text-primary mb-4">Conecte-se com a permanência
             </p>
             <h1
-                class="font-bold text-7xl md:text-9xl tracking-tighter leading-none border-b border-outline-variant/20 pb-8 uppercase">
+                class="font-bold text-4xl md:text-9xl tracking-tighter leading-none border-b border-outline-variant/20 pb-8 uppercase">
                 Fale<br />Conosco
             </h1>
         </header>
@@ -256,7 +260,7 @@
             <!-- Right Side: Form -->
             <div class="lg:col-span-7">
                 <div class="bg-surface-container-low p-8 md:p-16 rounded-2xl border border-outline-variant/10">
-                    <form class="space-y-12">
+                    <form class="space-y-6 md:space-y-12">
                         <div class="space-y-2">
                             <label class="font-label text-[10px] uppercase tracking-widest text-outline">Nome
                                 Completo</label>
@@ -280,7 +284,7 @@
                         </div>
                         <div class="pt-8">
                             <button
-                                class="w-full md:w-auto bg-primary text-on-primary px-16 py-5 rounded-lg font-bold uppercase tracking-widest text-xs transition-all hover:bg-primary-fixed-dim active:scale-[0.98]"
+                                class="w-full md:w-auto bg-primary text-on-primary px-16 py-4 md:py-5 rounded-lg font-bold uppercase tracking-widest text-xs transition-all hover:bg-primary-fixed-dim active:scale-[0.98]"
                                 type="submit">
                                 Enviar Solicitação
                             </button>
