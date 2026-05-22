@@ -864,7 +864,8 @@
         let swiperLightbox = null;
 
         function openLightbox(index) {
-            const gallery = document.getElementById('gallery-container');
+            const gallery = document.getElementById('gallery-wrapper');
+            if (!gallery) return;
             const imgs = gallery.querySelectorAll('img.gallery-item');
             
             const wrapper = document.getElementById('lightbox-wrapper');
@@ -881,7 +882,10 @@
 
             if (!swiperLightbox) {
                 swiperLightbox = new Swiper('.swiper-lightbox', {
-                    zoom: true,
+                    zoom: {
+                        maxRatio: 3,
+                        minRatio: 1,
+                    },
                     speed: 300,
                     spaceBetween: 30,
                     observer: true,

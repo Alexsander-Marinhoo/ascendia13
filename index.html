@@ -139,6 +139,12 @@
             letter-spacing: -0.04em;
         }
 
+        /* Google Maps dark styling */
+        iframe[src*="google.com/maps"] {
+            filter: grayscale(50%) invert(92%) hue-rotate(180deg) brightness(0.9) contrast(0.9);
+            border-radius: 0.75rem;
+        }
+
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
