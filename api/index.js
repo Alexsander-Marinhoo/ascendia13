@@ -9,12 +9,8 @@ const supabase = require('./supabaseClient');
 
 const app = express();
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../public')));
+// Configuração de arquivos estáticos removida (Vite/Vercel cuidam disso)
 
-// 5. Rota Principal
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
-});
 
 // 6. Rota de API (Exemplo para os imóveis)
 app.get('/api/corretores', async (req, res) => {

@@ -8,8 +8,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/server.js",
-    "dev": "nodemon server/server.js"
+    "dev": "concurrently \"vite\" \"node --watch api/index.js\"",
+    "build": "vite build",
+    "start": "node api/index.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.103.3",
@@ -17,6 +18,7 @@
     "express": "^5.2.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "concurrently": "^9.2.1",
+    "vite": "^8.0.14"
   }
 }
