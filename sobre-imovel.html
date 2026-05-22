@@ -1015,6 +1015,14 @@
             applyLightboxTransform();
         }
 
+        // Expose functions globally for inline onclick handlers
+        window.openLightbox = openLightbox;
+        window.closeLightbox = closeLightbox;
+        window.lightboxHandleOverlayClick = lightboxHandleOverlayClick;
+        window.lightboxNav = lightboxNav;
+        window.goToSlide = goToSlide;
+        window.scrollGallery = scrollGallery;
+
         function applyLightboxTransform() {
             const img = document.getElementById('lightbox-img');
             img.style.transform = `translate(${lbPanX}px, ${lbPanY}px) scale(${lbZoom})`;
@@ -1314,13 +1322,20 @@
 
                 const pageTitle = document.querySelector('h1')?.textContent?.trim() || '';
 
+                let mensagemFinal = mensagemInput.value.trim() || `Interesse no imóvel: ${pageTitle}`;
+                if (pageTitle) {
+                    mensagemFinal = `[Imóvel de Interesse: ${pageTitle}] ${mensagemFinal}`.trim();
+                }
+
                 const payload = {
                     nome: nomeInput.value.trim(),
                     whatsapp: whatsappInput.value.trim(),
-                    mensagem: mensagemInput.value.trim() || `Interesse no imóvel: ${pageTitle}`,
-                    imovel_titulo: pageTitle,
-                    destinatario: imovelCorretorId
+                    mensagem: mensagemFinal
                 };
+
+                if (imovelCorretorId) {
+                    payload.destinatario = imovelCorretorId;
+                }
 
                 if (!payload.nome || !payload.whatsapp) {
                     showPopup({
@@ -1366,7 +1381,7 @@
                     });
                 } finally {
                     submitButton.disabled = false;
-                    submitButton.textContent = 'Conectar com Especialista';
+                    submitButton.textContent = 'ENVIAR MENSAGEM PARA O CORRETOR';
                 }
             });
         }

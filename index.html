@@ -606,6 +606,7 @@
             touchMultiplier: 2,
             infinite: false,
         });
+        window.lenis = lenis; // Expose globally for inline onclick handlers
 
         function raf(time) {
             lenis.raf(time);
@@ -642,6 +643,7 @@
             }
             requestAnimationFrame(animateScroll);
         }
+        window.scrollCarousel = scrollCarousel; // Expose globally
 
         // Scroll suave para links internos (âncoras)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -784,7 +786,7 @@
                         });
                         contatoForm.reset();
                     } else {
-                        throw new Error(result.error || 'Erro desconhecido');
+                        throw new Error(error.message || 'Erro desconhecido');
                     }
                 } catch (error) {
                     console.error('Erro ao enviar contato:', error);

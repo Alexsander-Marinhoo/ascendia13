@@ -465,7 +465,7 @@
                         });
                         form.reset();
                     } else {
-                        throw new Error(result.error || 'Erro desconhecido');
+                        throw new Error(error.message || 'Erro desconhecido');
                     }
                 } catch (error) {
                     console.error('Erro ao enviar contato:', error);
