@@ -16,6 +16,10 @@
     <!-- Lenis para scroll suave -->
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
+    
+    <!-- Swiper.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -144,40 +148,7 @@
             scrollbar-width: none;
         }
 
-        .carousel-container {
-            scroll-behavior: smooth;
-        }
 
-        /* Carousel card sizing: 3 cards + peek on desktop */
-        .carousel-card {
-            flex-shrink: 0;
-        }
-
-        /* Mobile: 1 card + peek (mostra ~1.2 cards) */
-        .carousel-card {
-            width: calc((100vw - 3rem - 2rem) / 1.2);
-        }
-
-        /* Tablet (>=640px): 2 cards + peek (~2.3 cards) */
-        @media (min-width: 640px) {
-            .carousel-card {
-                width: calc((100vw - 3rem - 2rem * 2) / 2.3);
-            }
-        }
-
-        /* Desktop (>=1024px): 3 cards + half peek (~3.5 cards) */
-        @media (min-width: 1024px) {
-            .carousel-card {
-                width: calc((100vw - 6rem - 2rem * 3) / 3.5);
-            }
-        }
-
-        /* Large Desktop (>=1400px) */
-        @media (min-width: 1400px) {
-            .carousel-card {
-                width: calc((100vw - 6rem - 2rem * 3) / 3.5);
-            }
-        }
 
         #mobile-menu-overlay {
             transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
@@ -305,18 +276,17 @@
                 </h3>
                 <div class="flex space-x-4">
                     <button
-                        class="w-10 h-10 border border-outline/20 flex items-center justify-center hover:bg-primary/10 transition-colors rounded-full"
-                        onclick="scrollCarousel('carousel-aptos', -1)">
+                        class="swiper-button-prev-aptos w-10 h-10 border border-outline/20 flex items-center justify-center hover:bg-primary/10 transition-colors rounded-full">
                         <span class="material-symbols-outlined text-sm">arrow_back_ios_new</span>
                     </button>
                     <button
-                        class="w-10 h-10 border border-outline/20 flex items-center justify-center hover:bg-primary/10 transition-colors rounded-full"
-                        onclick="scrollCarousel('carousel-aptos', 1)">
+                        class="swiper-button-next-aptos w-10 h-10 border border-outline/20 flex items-center justify-center hover:bg-primary/10 transition-colors rounded-full">
                         <span class="material-symbols-outlined text-sm">arrow_forward_ios</span>
                     </button>
                 </div>
             </div>
-            <div class="flex overflow-x-auto no-scrollbar gap-8 px-6 md:px-12 carousel-container" id="carousel-aptos">
+            <div class="swiper swiper-aptos w-full pl-6 md:pl-12">
+                <div class="swiper-wrapper" id="carousel-aptos">
             </div>
         </div>
         <!-- Second Carousel: Casas de Condomínio -->
@@ -326,18 +296,17 @@
                 </h3>
                 <div class="flex space-x-4">
                     <button
-                        class="w-10 h-10 border border-outline/20 flex items-center justify-center hover:bg-primary/10 transition-colors rounded-full"
-                        onclick="scrollCarousel('carousel-casas', -1)">
+                        class="swiper-button-prev-casas w-10 h-10 border border-outline/20 flex items-center justify-center hover:bg-primary/10 transition-colors rounded-full">
                         <span class="material-symbols-outlined text-sm">arrow_back_ios_new</span>
                     </button>
                     <button
-                        class="w-10 h-10 border border-outline/20 flex items-center justify-center hover:bg-primary/10 transition-colors rounded-full"
-                        onclick="scrollCarousel('carousel-casas', 1)">
+                        class="swiper-button-next-casas w-10 h-10 border border-outline/20 flex items-center justify-center hover:bg-primary/10 transition-colors rounded-full">
                         <span class="material-symbols-outlined text-sm">arrow_forward_ios</span>
                     </button>
                 </div>
             </div>
-            <div class="flex overflow-x-auto no-scrollbar gap-8 px-6 md:px-12 carousel-container" id="carousel-casas">
+            <div class="swiper swiper-casas w-full pl-6 md:pl-12">
+                <div class="swiper-wrapper" id="carousel-casas">
             </div>
         </div>
     </section>
@@ -617,36 +586,6 @@
 
         requestAnimationFrame(raf);
 
-        // Scroll carousel by one card width + gap
-        function scrollCarousel(carouselId, direction) {
-            const carousel = document.getElementById(carouselId);
-            if (!carousel) return;
-            const card = carousel.querySelector('.carousel-card');
-            if (!card) return;
-            const gap = parseFloat(getComputedStyle(carousel).gap) || 32;
-            const scrollAmount = (card.offsetWidth + gap) * direction;
-
-            const start = carousel.scrollLeft;
-            const end = start + scrollAmount;
-            const duration = 600; // ms
-            const startTime = performance.now();
-
-            function animateScroll(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                // EaseInOutCubic
-                const ease = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-
-                carousel.scrollLeft = start + (end - start) * ease;
-
-                if (progress < 1) {
-                    requestAnimationFrame(animateScroll);
-                }
-            }
-            requestAnimationFrame(animateScroll);
-        }
-        window.scrollCarousel = scrollCarousel; // Expose globally
-
         // Scroll suave para links internos (âncoras)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -675,7 +614,7 @@
             const specs = [areaStr, suitesStr].filter(Boolean).join('  |  ');
 
             return `
-                <a href="sobre-imovel.html?id=${imovel.id}" class="carousel-card group/item block">
+                <a href="sobre-imovel.html?id=${imovel.id}" class="swiper-slide group/item block w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]">
                     <div class="aspect-[3/2] overflow-hidden border border-outline/10 mb-5 rounded-lg relative">
                         <img alt="${imovel.titulo}"
                             class="w-full h-full object-cover transition-all duration-700 ease-in-out scale-100 group-hover/item:scale-105"
@@ -717,6 +656,14 @@
 
                 if (apartamentos.length > 0) {
                     sliderApartamentos.innerHTML = apartamentos.map(createImovelCard).join('');
+                    new Swiper('.swiper-aptos', {
+                        slidesPerView: 'auto',
+                        spaceBetween: 32,
+                        navigation: {
+                            nextEl: '.swiper-button-next-aptos',
+                            prevEl: '.swiper-button-prev-aptos',
+                        },
+                    });
                 } else {
                     sliderApartamentos.innerHTML = `
                         <p class="text-on-surface-variant/60 uppercase tracking-widest text-xs py-8 px-6">Nenhum apartamento disponível no momento.</p>
@@ -725,6 +672,14 @@
 
                 if (casas.length > 0) {
                     sliderCasas.innerHTML = casas.map(createImovelCard).join('');
+                    new Swiper('.swiper-casas', {
+                        slidesPerView: 'auto',
+                        spaceBetween: 32,
+                        navigation: {
+                            nextEl: '.swiper-button-next-casas',
+                            prevEl: '.swiper-button-prev-casas',
+                        },
+                    });
                 } else {
                     sliderCasas.innerHTML = `
                         <p class="text-on-surface-variant/60 uppercase tracking-widest text-xs py-8 px-6">Nenhuma casa disponível no momento.</p>

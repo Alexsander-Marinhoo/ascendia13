@@ -14,6 +14,10 @@
     <!-- Lenis para scroll suave -->
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
+    
+    <!-- Swiper.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -204,30 +208,29 @@
             visibility: visible;
         }
 
-        .lightbox-img-wrapper {
-            position: relative;
-            width: 90vw;
-            height: 85vh;
+        .swiper-lightbox {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .swiper-slide {
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            cursor: grab;
         }
 
-        .lightbox-img-wrapper.dragging {
-            cursor: grabbing;
-        }
-
-        .lightbox-img-wrapper img {
-            max-width: 100%;
-            max-height: 100%;
+        .swiper-slide img {
+            max-width: 90vw;
+            max-height: 85vh;
             object-fit: contain;
-            transition: transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
-            transform-origin: center center;
             user-select: none;
-            -webkit-user-drag: none;
-            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .swiper-slide img {
+                max-width: 100vw;
+                max-height: 80vh;
+            }
         }
 
         .lightbox-close {
@@ -300,6 +303,15 @@
             font-variant-numeric: tabular-nums;
         }
 
+        /* Customize Swiper Pagination to look like original counter */
+        .swiper-pagination-fraction {
+            bottom: 24px !important;
+            color: rgba(255, 255, 255, 0.5) !important;
+            font-size: 11px !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.3em !important;
+        }
+
         .lightbox-zoom-hint {
             position: absolute;
             bottom: 24px;
@@ -322,7 +334,7 @@
 
         @media (max-width: 768px) {
             .lightbox-nav {
-                display: none;
+                display: none !important;
             }
 
             .lightbox-close {
@@ -330,11 +342,6 @@
                 right: 12px;
                 width: 40px;
                 height: 40px;
-            }
-
-            .lightbox-img-wrapper {
-                width: 100vw;
-                height: 80vh;
             }
 
             .lightbox-zoom-hint {
@@ -674,23 +681,23 @@
 
 
     <!-- Lightbox / Fullscreen Image Viewer -->
-    <div id="lightbox-overlay" class="lightbox-overlay" onclick="lightboxHandleOverlayClick(event)">
-        <button class="lightbox-close" onclick="closeLightbox()">
-            <span class="material-symbols-outlined">close</span>
+    <div id="lightbox-overlay" class="lightbox-overlay swiper swiper-lightbox" onclick="lightboxHandleOverlayClick(event)">
+        <button class="lightbox-close" onclick="closeLightbox()" style="z-index: 50;">
+            <span class="material-symbols-outlined text-white">close</span>
         </button>
-        <button class="lightbox-nav prev" onclick="lightboxNav(-1)">
-            <span class="material-symbols-outlined">chevron_left</span>
-        </button>
-        <button class="lightbox-nav next" onclick="lightboxNav(1)">
-            <span class="material-symbols-outlined">chevron_right</span>
-        </button>
-        <div id="lightbox-img-wrapper" class="lightbox-img-wrapper">
-            <img id="lightbox-img" src="" alt="" />
+        <div class="swiper-button-prev lightbox-nav prev" style="z-index: 50;">
+            <span class="material-symbols-outlined text-white">chevron_left</span>
         </div>
-        <span id="lightbox-counter" class="lightbox-counter"></span>
-        <span id="lightbox-zoom-hint" class="lightbox-zoom-hint">
+        <div class="swiper-button-next lightbox-nav next" style="z-index: 50;">
+            <span class="material-symbols-outlined text-white">chevron_right</span>
+        </div>
+        <div class="swiper-wrapper" id="lightbox-wrapper">
+            <!-- Images will be injected here -->
+        </div>
+        <div class="swiper-pagination lightbox-counter" id="lightbox-counter" style="z-index: 50;"></div>
+        <span id="lightbox-zoom-hint" class="lightbox-zoom-hint" style="z-index: 50;">
             <span class="material-symbols-outlined" style="font-size:14px">zoom_in</span>
-            Scroll para zoom
+            Duplo toque para zoom
         </span>
     </div>
 
@@ -945,33 +952,53 @@
             if (e.key === 'ArrowLeft') scrollGallery(-1);
         });
 
-        // ===== Lightbox / Fullscreen Viewer with Zoom & Pan =====
-        let lightboxIsOpen = false;
-        let lightboxIndex = 0;
-        let lightboxFotos = [];
-        let lbZoom = 1;
-        let lbPanX = 0;
-        let lbPanY = 0;
-        let lbDragging = false;
-        let lbDragStartX = 0;
-        let lbDragStartY = 0;
-        let lbPanStartX = 0;
-        let lbPanStartY = 0;
-        // Pinch zoom state
-        let lbLastPinchDist = 0;
+        // ===== Lightbox / Fullscreen Viewer with Zoom & Pan (Swiper) =====
+        let swiperLightbox = null;
 
         function openLightbox(index) {
             const gallery = document.getElementById('gallery-container');
             const imgs = gallery.querySelectorAll('img.gallery-item');
-            lightboxFotos = Array.from(imgs).map(img => img.src);
-            lightboxIndex = index;
-            lightboxIsOpen = true;
-            lbZoom = 1;
-            lbPanX = 0;
-            lbPanY = 0;
-            updateLightboxImage();
+            
+            const wrapper = document.getElementById('lightbox-wrapper');
+            wrapper.innerHTML = Array.from(imgs).map(img => `
+                <div class="swiper-slide">
+                    <div class="swiper-zoom-container">
+                        <img src="${img.src}" alt="Foto Ampliada" />
+                    </div>
+                </div>
+            `).join('');
+
             document.getElementById('lightbox-overlay').classList.add('active');
             document.body.style.overflow = 'hidden';
+
+            if (!swiperLightbox) {
+                swiperLightbox = new Swiper('.swiper-lightbox', {
+                    zoom: true,
+                    navigation: {
+                        nextEl: '.swiper-button-next.next',
+                        prevEl: '.swiper-button-prev.prev',
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        type: 'fraction',
+                        formatFractionCurrent: function (number) {
+                            return String(number).padStart(2, '0');
+                        },
+                        formatFractionTotal: function (number) {
+                            return String(number).padStart(2, '0');
+                        }
+                    },
+                    keyboard: {
+                        enabled: true,
+                        onlyInViewport: false,
+                    },
+                    initialSlide: index,
+                });
+            } else {
+                swiperLightbox.update();
+                swiperLightbox.slideTo(index, 0);
+            }
+
             // Show zoom hint, hide after 3s
             const hint = document.getElementById('lightbox-zoom-hint');
             hint.classList.remove('hidden-hint');
@@ -979,189 +1006,23 @@
         }
 
         function closeLightbox() {
-            lightboxIsOpen = false;
             document.getElementById('lightbox-overlay').classList.remove('active');
             document.body.style.overflow = '';
-            lbZoom = 1;
-            lbPanX = 0;
-            lbPanY = 0;
         }
 
         function lightboxHandleOverlayClick(e) {
-            // Close only if clicking on the overlay background itself
-            if (e.target === document.getElementById('lightbox-overlay')) {
+            // Close only if clicking on the overlay background itself or slide background
+            if (e.target.classList.contains('swiper-slide') || e.target.id === 'lightbox-overlay' || e.target.classList.contains('swiper-zoom-container')) {
                 closeLightbox();
             }
-        }
-
-        function lightboxNav(dir) {
-            if (lightboxFotos.length === 0) return;
-            lightboxIndex = (lightboxIndex + dir + lightboxFotos.length) % lightboxFotos.length;
-            lbZoom = 1;
-            lbPanX = 0;
-            lbPanY = 0;
-            updateLightboxImage();
-        }
-
-        function updateLightboxImage() {
-            const img = document.getElementById('lightbox-img');
-            const counter = document.getElementById('lightbox-counter');
-            img.src = lightboxFotos[lightboxIndex];
-            img.alt = `Foto ${lightboxIndex + 1}`;
-            counter.textContent = `${String(lightboxIndex + 1).padStart(2, '0')} / ${String(lightboxFotos.length).padStart(2, '0')}`;
-            applyLightboxTransform();
         }
 
         // Expose functions globally for inline onclick handlers
         window.openLightbox = openLightbox;
         window.closeLightbox = closeLightbox;
         window.lightboxHandleOverlayClick = lightboxHandleOverlayClick;
-        window.lightboxNav = lightboxNav;
         window.goToSlide = goToSlide;
         window.scrollGallery = scrollGallery;
-
-        function applyLightboxTransform() {
-            const img = document.getElementById('lightbox-img');
-            img.style.transform = `translate(${lbPanX}px, ${lbPanY}px) scale(${lbZoom})`;
-        }
-
-        function clampPan() {
-            if (lbZoom <= 1) {
-                lbPanX = 0;
-                lbPanY = 0;
-                return;
-            }
-            const wrapper = document.getElementById('lightbox-img-wrapper');
-            const img = document.getElementById('lightbox-img');
-            const wRect = wrapper.getBoundingClientRect();
-            const imgW = img.naturalWidth ? Math.min(img.naturalWidth, wRect.width) : wRect.width;
-            const imgH = img.naturalHeight ? Math.min(img.naturalHeight, wRect.height) : wRect.height;
-            const maxPanX = Math.max(0, (imgW * lbZoom - wRect.width) / 2);
-            const maxPanY = Math.max(0, (imgH * lbZoom - wRect.height) / 2);
-            lbPanX = Math.max(-maxPanX, Math.min(maxPanX, lbPanX));
-            lbPanY = Math.max(-maxPanY, Math.min(maxPanY, lbPanY));
-        }
-
-        // Scroll-to-zoom on the lightbox wrapper
-        (function initLightboxZoom() {
-            const wrapper = document.getElementById('lightbox-img-wrapper');
-
-            // Mouse wheel zoom
-            wrapper.addEventListener('wheel', (e) => {
-                e.preventDefault();
-                const delta = e.deltaY > 0 ? -0.15 : 0.15;
-                lbZoom = Math.max(1, Math.min(5, lbZoom + delta));
-                if (lbZoom <= 1) { lbPanX = 0; lbPanY = 0; }
-                clampPan();
-                applyLightboxTransform();
-                // Hide hint on first zoom
-                document.getElementById('lightbox-zoom-hint').classList.add('hidden-hint');
-            }, { passive: false });
-
-            // Double-click to toggle zoom
-            wrapper.addEventListener('dblclick', (e) => {
-                e.preventDefault();
-                if (lbZoom > 1) {
-                    lbZoom = 1;
-                    lbPanX = 0;
-                    lbPanY = 0;
-                } else {
-                    lbZoom = 2.5;
-                }
-                clampPan();
-                applyLightboxTransform();
-            });
-
-            // Drag-to-pan (mouse)
-            wrapper.addEventListener('mousedown', (e) => {
-                if (lbZoom <= 1) return;
-                e.preventDefault();
-                lbDragging = true;
-                lbDragStartX = e.clientX;
-                lbDragStartY = e.clientY;
-                lbPanStartX = lbPanX;
-                lbPanStartY = lbPanY;
-                wrapper.classList.add('dragging');
-            });
-
-            window.addEventListener('mousemove', (e) => {
-                if (!lbDragging) return;
-                lbPanX = lbPanStartX + (e.clientX - lbDragStartX);
-                lbPanY = lbPanStartY + (e.clientY - lbDragStartY);
-                clampPan();
-                applyLightboxTransform();
-            });
-
-            window.addEventListener('mouseup', () => {
-                lbDragging = false;
-                wrapper.classList.remove('dragging');
-            });
-
-            // Touch: drag-to-pan + pinch-to-zoom
-            wrapper.addEventListener('touchstart', (e) => {
-                if (e.touches.length === 1 && lbZoom > 1) {
-                    lbDragging = true;
-                    lbDragStartX = e.touches[0].clientX;
-                    lbDragStartY = e.touches[0].clientY;
-                    lbPanStartX = lbPanX;
-                    lbPanStartY = lbPanY;
-                } else if (e.touches.length === 2) {
-                    lbLastPinchDist = getPinchDistance(e.touches);
-                }
-            }, { passive: true });
-
-            wrapper.addEventListener('touchmove', (e) => {
-                if (e.touches.length === 1 && lbDragging) {
-                    e.preventDefault();
-                    lbPanX = lbPanStartX + (e.touches[0].clientX - lbDragStartX);
-                    lbPanY = lbPanStartY + (e.touches[0].clientY - lbDragStartY);
-                    clampPan();
-                    applyLightboxTransform();
-                } else if (e.touches.length === 2) {
-                    e.preventDefault();
-                    const dist = getPinchDistance(e.touches);
-                    const scale = dist / lbLastPinchDist;
-                    lbZoom = Math.max(1, Math.min(5, lbZoom * scale));
-                    lbLastPinchDist = dist;
-                    if (lbZoom <= 1) { lbPanX = 0; lbPanY = 0; }
-                    clampPan();
-                    applyLightboxTransform();
-                }
-            }, { passive: false });
-
-            wrapper.addEventListener('touchend', () => {
-                lbDragging = false;
-            });
-
-            function getPinchDistance(touches) {
-                const dx = touches[0].clientX - touches[1].clientX;
-                const dy = touches[0].clientY - touches[1].clientY;
-                return Math.sqrt(dx * dx + dy * dy);
-            }
-        })();
-
-        // Swipe to navigate on lightbox (single-finger when not zoomed)
-        (function initLightboxSwipe() {
-            const wrapper = document.getElementById('lightbox-img-wrapper');
-            let swipeStartX = 0;
-            let swipeStartY = 0;
-
-            wrapper.addEventListener('touchstart', (e) => {
-                if (e.touches.length === 1 && lbZoom <= 1) {
-                    swipeStartX = e.touches[0].clientX;
-                    swipeStartY = e.touches[0].clientY;
-                }
-            }, { passive: true });
-
-            wrapper.addEventListener('touchend', (e) => {
-                if (lbZoom > 1 || !lightboxIsOpen) return;
-                const dx = e.changedTouches[0].clientX - swipeStartX;
-                const dy = e.changedTouches[0].clientY - swipeStartY;
-                if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-                    lightboxNav(dx < 0 ? 1 : -1);
-                }
-            });
-        })();
 
         // ===== Google Maps Helper =====
         function initMap(bairro, cidade) {
