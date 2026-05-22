@@ -1030,9 +1030,9 @@
                 ].filter(s => s.value);
 
                 specsGrid.innerHTML = specs.map((spec, i) => `
-                    <div class="bg-surface-container-low p-8 flex justify-between items-center ${i === specs.length - 1 && specs.length % 2 !== 0 ? 'md:col-span-2' : ''}">
-                        <span class="text-xs uppercase tracking-widest text-on-surface-variant font-semibold">${spec.label}</span>
-                        <span class="font-bold text-on-surface">${spec.value}</span>
+                    <div class="bg-surface-container-low p-4 sm:p-6 md:p-8 flex justify-between items-center gap-4 ${i === specs.length - 1 && specs.length % 2 !== 0 ? 'md:col-span-2' : ''}">
+                        <span class="text-[10px] sm:text-xs uppercase tracking-wider sm:tracking-widest text-on-surface-variant font-semibold shrink-0">${spec.label}</span>
+                        <span class="text-sm sm:text-base font-bold text-on-surface text-right break-words max-w-[60%]">${spec.value}</span>
                     </div>
                 `).join('');
 
