@@ -84,7 +84,14 @@ app.post('/api/contatos', async (req, res) => {
     }
 });
 
-const port = process.env.PORT;
-app.listen(port, () => {
-    console.log(`\n✅ Sucesso! Servidor rodando em: http://localhost:${port}`);
-});
+const port = process.env.PORT || 3000;
+
+// Exportar o app para ambientes Serverless (como a Vercel)
+module.exports = app;
+
+// Apenas escutar a porta localmente se não estiver em produção/Vercel
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(port, () => {
+        console.log(`\n✅ Sucesso! Servidor rodando em: http://localhost:${port}`);
+    });
+}
