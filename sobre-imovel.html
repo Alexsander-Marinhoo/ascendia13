@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
     <link rel="icon" type="image/x-icon" href="/imgs/favicon.ico" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
@@ -14,7 +14,7 @@
     <!-- Lenis para scroll suave -->
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
-    
+
     <!-- Swiper.js -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -394,7 +394,8 @@
         <button class="absolute top-6 right-6 text-primary p-2" id="close-menu-btn">
             <span class="material-symbols-outlined text-4xl">close</span>
         </button>
-        <div class="flex flex-col items-center space-y-8 transform translate-y-10 transition-all duration-300 ease-out delay-100" id="mobile-menu-content">
+        <div class="flex flex-col items-center space-y-8 transform translate-y-10 transition-all duration-300 ease-out delay-100"
+            id="mobile-menu-content">
             <a href="index.html"
                 class="text-[#c4c9ae] font-headline text-2xl font-extrabold tracking-tighter uppercase mb-8 hover:opacity-80 transition-opacity block">ASCENDIA
                 13@.</a>
@@ -434,15 +435,75 @@
         closeMenuBtn.addEventListener('click', toggleMenu);
     </script>
     <main class="pt-32 pb-40">
-        <!-- Loading State -->
-        <div id="loading-state" class="flex items-center justify-center min-h-[60vh]">
-            <div class="text-center">
-                <div
-                    class="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4">
+        <!-- Loading State (Skeleton) -->
+        <div id="loading-state" class="animate-pulse">
+            <!-- Header Skeleton -->
+            <header class="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+                    <div class="w-full md:w-2/3">
+                        <div class="h-3 bg-surface-container-high rounded w-24 mb-4"></div>
+                        <div class="h-10 md:h-16 bg-surface-container-high rounded w-3/4"></div>
+                    </div>
+                    <div class="flex gap-12 mt-6 md:mt-0">
+                        <div class="w-20">
+                            <div class="h-3 bg-surface-container-high rounded mb-2"></div>
+                            <div class="h-5 bg-surface-container-high rounded"></div>
+                        </div>
+                        <div class="w-28">
+                            <div class="h-3 bg-surface-container-high rounded mb-2"></div>
+                            <div class="h-6 bg-surface-container-high rounded"></div>
+                        </div>
+                    </div>
                 </div>
-                <p class="font-label text-[10px] tracking-[0.3em] uppercase text-on-surface-variant">Carregando
-                    imóvel...</p>
-            </div>
+            </header>
+
+            <!-- Gallery Skeleton -->
+            <section class="mb-24 px-0 md:px-12 max-w-screen-2xl mx-auto">
+                <div
+                    class="aspect-[16/9] md:h-[450px] lg:h-[500px] xl:h-[550px] w-full bg-surface-container-high rounded-none md:rounded-xl">
+                </div>
+            </section>
+
+            <!-- Details + Sidebar Skeleton -->
+            <section class="px-6 md:px-12 max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-24 items-start">
+                <div class="lg:col-span-7">
+                    <!-- Description -->
+                    <div class="mb-20">
+                        <div class="h-3 bg-surface-container-high rounded w-32 mb-8"></div>
+                        <div class="space-y-4">
+                            <div class="h-5 bg-surface-container-high rounded w-full"></div>
+                            <div class="h-5 bg-surface-container-high rounded w-5/6"></div>
+                            <div class="h-5 bg-surface-container-high rounded w-4/5"></div>
+                        </div>
+                    </div>
+
+                    <!-- Specs -->
+                    <div class="mb-20">
+                        <div class="h-3 bg-surface-container-high rounded w-24 mb-12"></div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="h-16 bg-surface-container-high rounded-2xl md:rounded-xl"></div>
+                            <div class="h-16 bg-surface-container-high rounded-2xl md:rounded-xl"></div>
+                            <div class="h-16 bg-surface-container-high rounded-2xl md:rounded-xl"></div>
+                            <div class="h-16 bg-surface-container-high rounded-2xl md:rounded-xl"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="lg:col-span-5">
+                    <div
+                        class="bg-surface-container-low p-6 sm:p-12 border border-outline-variant/10 rounded-xl space-y-8">
+                        <div class="h-8 bg-surface-container-high rounded w-3/4"></div>
+                        <div class="h-3 bg-surface-container-high rounded w-1/2"></div>
+                        <div class="space-y-6">
+                            <div class="h-12 bg-surface-container-high rounded-md"></div>
+                            <div class="h-12 bg-surface-container-high rounded-md"></div>
+                            <div class="h-24 bg-surface-container-high rounded-md"></div>
+                        </div>
+                        <div class="h-14 bg-surface-container-high rounded-full w-full"></div>
+                    </div>
+                </aside>
+            </section>
         </div>
 
         <!-- Error State -->
@@ -501,7 +562,8 @@
                         <!-- Counter + Dots -->
                         <div class="flex items-center gap-4 pointer-events-auto">
                             <div
-                                class="swiper-pagination-gallery-fraction text-[10px] uppercase tracking-[0.3em] text-white/70 font-bold hidden md:block"></div>
+                                class="swiper-pagination-gallery-fraction text-[10px] uppercase tracking-[0.3em] text-white/70 font-bold hidden md:block">
+                            </div>
                             <div class="swiper-pagination-gallery-bullets flex gap-2"></div>
                         </div>
                         <!-- Arrow buttons -->
@@ -539,7 +601,7 @@
                         <h2 class="text-[10px] uppercase tracking-[0.4em] text-primary font-bold mb-12">Especificações
                         </h2>
                         <div id="specs-grid"
-                            class="grid grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/20 border border-outline-variant/20 rounded-xl overflow-hidden">
+                            class="grid grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/20 border border-outline-variant/20 rounded-2xl md:rounded-xl overflow-hidden">
                         </div>
                     </div>
 
@@ -584,21 +646,21 @@
                                     Completo</label>
                                 <input
                                     class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary px-0 py-2 text-on-surface transition-all placeholder:text-outline/40"
-                                    placeholder="Seu nome completo" type="text" />
+                                    placeholder="Seu nome completo" type="text" required />
                             </div>
                             <div class="relative group">
                                 <label
                                     class="block text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-3 group-focus-within:text-primary transition-colors font-bold">Whatsapp</label>
                                 <input
                                     class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary px-0 py-2 text-on-surface transition-all placeholder:text-outline/40"
-                                    placeholder="(13) 99999-9999" type="tel" />
+                                    placeholder="(13) 99999-9999" type="tel" required />
                             </div>
                             <div class="relative group">
                                 <label
                                     class="block text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-3 group-focus-within:text-primary transition-colors font-bold">Mensagem</label>
                                 <textarea
                                     class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary px-0 py-2 text-on-surface transition-all placeholder:text-outline/40 resize-none"
-                                    placeholder="Descreva seu interesse neste imóvel..." rows="3"></textarea>
+                                    placeholder="Descreva seu interesse neste imóvel..." rows="3" required></textarea>
                             </div>
                             <div class="pt-8">
                                 <button type="submit"
@@ -621,21 +683,29 @@
                             </span>
                         </a>
                         <!-- Seção Corretor Responsável -->
-                        <div id="corretor-secao" class="mt-12 pt-12 border-t border-outline-variant/10 flex flex-col gap-6" style="display: none;">
+                        <div id="corretor-secao"
+                            class="mt-12 pt-12 border-t border-outline-variant/10 flex flex-col gap-6"
+                            style="display: none;">
                             <p class="text-[10px] text-on-surface-variant uppercase tracking-[0.2em] font-bold">
                                 Corretor Responsável
                             </p>
                             <div class="flex items-center gap-6">
                                 <!-- Foto do Corretor -->
                                 <div class="relative group">
-                                    <div class="absolute -inset-0.5 bg-gradient-to-r from-primary to-surface-tint rounded-full opacity-30 group-hover:opacity-100 transition duration-300 blur-sm"></div>
+                                    <div
+                                        class="absolute -inset-0.5 bg-gradient-to-r from-primary to-surface-tint rounded-full opacity-30 group-hover:opacity-100 transition duration-300 blur-sm">
+                                    </div>
                                     <img id="corretor-foto" src="" alt="Foto do Corretor"
                                         class="relative w-16 h-16 rounded-full object-cover border-2 border-outline-variant/20 shadow-lg" />
                                 </div>
                                 <!-- Informações do Corretor -->
                                 <div>
-                                    <h4 id="corretor-nome" class="text-sm font-bold tracking-tighter text-on-surface uppercase font-headline"></h4>
-                                    <p id="corretor-creci" class="text-[10px] tracking-widest text-primary uppercase font-semibold mt-1 font-label"></p>
+                                    <h4 id="corretor-nome"
+                                        class="text-sm font-bold tracking-tighter text-on-surface uppercase font-headline">
+                                    </h4>
+                                    <p id="corretor-creci"
+                                        class="text-[10px] tracking-widest text-primary uppercase font-semibold mt-1 font-label">
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -682,7 +752,8 @@
 
 
     <!-- Lightbox / Fullscreen Image Viewer -->
-    <div id="lightbox-overlay" class="lightbox-overlay swiper swiper-lightbox" onclick="lightboxHandleOverlayClick(event)">
+    <div id="lightbox-overlay" class="lightbox-overlay swiper swiper-lightbox"
+        onclick="lightboxHandleOverlayClick(event)">
         <button class="lightbox-close" onclick="closeLightbox()" style="z-index: 50;">
             <span class="material-symbols-outlined text-white">close</span>
         </button>
@@ -796,7 +867,7 @@
                         <span class="material-symbols-outlined text-6xl text-outline/30">image</span>
                     </div>
                 `;
-                if(fractionEl) fractionEl.textContent = '01 / 01';
+                if (fractionEl) fractionEl.textContent = '01 / 01';
                 return;
             }
 
@@ -833,17 +904,33 @@
                     },
                     on: {
                         init: function () {
-                            if(fractionEl) fractionEl.textContent = '01 / ' + String(this.slides.length).padStart(2, '0');
+                            if (fractionEl) fractionEl.textContent = '01 / ' + String(this.slides.length).padStart(2, '0');
                         },
                         slideChange: function () {
-                            if(fractionEl) fractionEl.textContent = String(this.activeIndex + 1).padStart(2, '0') + ' / ' + String(this.slides.length).padStart(2, '0');
+                            if (fractionEl) fractionEl.textContent = String(this.activeIndex + 1).padStart(2, '0') + ' / ' + String(this.slides.length).padStart(2, '0');
                         }
                     }
                 });
             } else {
                 swiperGallery.update();
                 swiperGallery.slideTo(0, 0);
-                if(fractionEl) fractionEl.textContent = '01 / ' + String(swiperGallery.slides.length).padStart(2, '0');
+                if (fractionEl) fractionEl.textContent = '01 / ' + String(swiperGallery.slides.length).padStart(2, '0');
+            }
+        }
+
+        let lightboxIsOpen = false;
+
+        function scrollGallery(direction) {
+            if (swiperGallery) {
+                if (direction === 1) swiperGallery.slideNext();
+                else if (direction === -1) swiperGallery.slidePrev();
+            }
+        }
+
+        function lightboxNav(direction) {
+            if (swiperLightbox) {
+                if (direction === 1) swiperLightbox.slideNext();
+                else if (direction === -1) swiperLightbox.slidePrev();
             }
         }
 
@@ -867,7 +954,7 @@
             const gallery = document.getElementById('gallery-wrapper');
             if (!gallery) return;
             const imgs = gallery.querySelectorAll('img.gallery-item');
-            
+
             const wrapper = document.getElementById('lightbox-wrapper');
             wrapper.innerHTML = Array.from(imgs).map(img => `
                 <div class="swiper-slide">
@@ -919,11 +1006,14 @@
             const hint = document.getElementById('lightbox-zoom-hint');
             hint.classList.remove('hidden-hint');
             setTimeout(() => hint.classList.add('hidden-hint'), 3000);
+            
+            lightboxIsOpen = true;
         }
 
         function closeLightbox() {
             document.getElementById('lightbox-overlay').classList.remove('active');
             document.body.style.overflow = '';
+            lightboxIsOpen = false;
         }
 
         function lightboxHandleOverlayClick(e) {
@@ -1030,7 +1120,7 @@
                 ].filter(s => s.value);
 
                 specsGrid.innerHTML = specs.map((spec, i) => `
-                    <div class="bg-surface-container-low p-4 sm:p-6 md:p-8 flex justify-between items-center gap-4 ${i === specs.length - 1 && specs.length % 2 !== 0 ? 'md:col-span-2' : ''}">
+                    <div class="bg-surface-container-low py-4 px-6 md:p-8 flex justify-between items-center gap-4 ${i === specs.length - 1 && specs.length % 2 !== 0 ? 'md:col-span-2' : ''}">
                         <span class="text-[10px] sm:text-xs uppercase tracking-wider sm:tracking-widest text-on-surface-variant font-semibold shrink-0">${spec.label}</span>
                         <span class="text-sm sm:text-base font-bold text-on-surface text-right break-words max-w-[60%]">${spec.value}</span>
                     </div>
