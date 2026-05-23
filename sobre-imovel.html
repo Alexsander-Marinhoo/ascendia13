@@ -920,6 +920,22 @@
 
         let lightboxIsOpen = false;
 
+        // ===== Bloqueio de Zoom no iOS Safari (via JS) =====
+        document.addEventListener('touchstart', function (event) {
+            if (event.touches.length > 1 && !lightboxIsOpen) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300 && !lightboxIsOpen) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, { passive: false });
+
         function scrollGallery(direction) {
             if (swiperGallery) {
                 if (direction === 1) swiperGallery.slideNext();
