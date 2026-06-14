@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="pt-BR">
+<html class="light" lang="pt-BR">
 
 <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="/src/variables.css" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <link rel="icon" type="image/x-icon" href="/imgs/favicon.ico" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -21,57 +22,57 @@
             theme: {
                 extend: {
                     "colors": {
-                        "surface-tint": "#c4c9ae",
-                        "primary-fixed-dim": "#d2d7bb",
-                        "on-secondary-container": "#daba94",
-                        "tertiary-container": "#edebe6",
-                        "primary-container": "#444934",
-                        "tertiary-fixed-dim": "#e7e5e0",
-                        "inverse-on-surface": "#565555",
-                        "on-error-container": "#ff9993",
-                        "primary-fixed": "#e1e5c9",
-                        "surface-container-low": "#131313",
-                        "primary-dim": "#b7bba1",
-                        "error-container": "#7f2927",
-                        "on-surface": "#e7e5e5",
-                        "surface-dim": "#0e0e0e",
-                        "secondary-dim": "#b79975",
-                        "surface-container-highest": "#252626",
-                        "tertiary": "#fbf9f4",
-                        "secondary-fixed": "#ffddb6",
-                        "surface-bright": "#2b2c2c",
-                        "primary": "#c4c9ae",
-                        "on-secondary-fixed": "#513b1e",
-                        "surface-container-lowest": "#000000",
-                        "error": "#ee7d77",
-                        "outline": "#767575",
-                        "on-secondary-fixed-variant": "#705738",
-                        "surface-variant": "#252626",
-                        "background": "#0e0e0e",
-                        "on-tertiary-container": "#575753",
-                        "surface-container": "#191a1a",
-                        "outline-variant": "#484848",
-                        "secondary-container": "#4d371b",
-                        "surface-container-high": "#1f2020",
-                        "on-secondary": "#2e1c04",
-                        "on-tertiary": "#5f5f5b",
-                        "on-error": "#490106",
-                        "inverse-primary": "#5c614b",
-                        "on-primary-container": "#ced3b7",
-                        "on-primary": "#3d422e",
-                        "on-tertiary-fixed-variant": "#666662",
-                        "on-background": "#e7e5e5",
-                        "secondary": "#b79975",
-                        "surface": "#0e0e0e",
-                        "secondary-fixed-dim": "#f1cfa8",
-                        "tertiary-dim": "#edebe6",
-                        "tertiary-fixed": "#f6f3ee",
-                        "on-primary-fixed-variant": "#595e48",
-                        "on-tertiary-fixed": "#4a4a46",
-                        "on-primary-fixed": "#3d412d",
-                        "error-dim": "#bb5551",
-                        "inverse-surface": "#fcf9f8",
-                        "on-surface-variant": "#acabaa"
+                        "surface-tint": "var(--surface-tint)",
+                        "primary-fixed-dim": "var(--primary-fixed-dim)",
+                        "on-secondary-container": "var(--on-secondary-container)",
+                        "tertiary-container": "var(--tertiary-container)",
+                        "primary-container": "var(--primary-container)",
+                        "tertiary-fixed-dim": "var(--tertiary-fixed-dim)",
+                        "inverse-on-surface": "var(--inverse-on-surface)",
+                        "on-error-container": "var(--on-error-container)",
+                        "primary-fixed": "var(--primary-fixed)",
+                        "surface-container-low": "var(--surface-container-low)",
+                        "primary-dim": "var(--primary-dim)",
+                        "error-container": "var(--error-container)",
+                        "on-surface": "var(--on-surface)",
+                        "surface-dim": "var(--surface-dim)",
+                        "secondary-dim": "var(--secondary-dim)",
+                        "surface-container-highest": "var(--surface-container-highest)",
+                        "tertiary": "var(--tertiary)",
+                        "secondary-fixed": "var(--secondary-fixed)",
+                        "surface-bright": "var(--surface-bright)",
+                        "primary": "var(--primary)",
+                        "on-secondary-fixed": "var(--on-secondary-fixed)",
+                        "surface-container-lowest": "var(--surface-container-lowest)",
+                        "error": "var(--error)",
+                        "outline": "var(--outline)",
+                        "on-secondary-fixed-variant": "var(--on-secondary-fixed-variant)",
+                        "surface-variant": "var(--surface-variant)",
+                        "background": "var(--background)",
+                        "on-tertiary-container": "var(--on-tertiary-container)",
+                        "surface-container": "var(--surface-container)",
+                        "outline-variant": "var(--outline-variant)",
+                        "secondary-container": "var(--secondary-container)",
+                        "surface-container-high": "var(--surface-container-high)",
+                        "on-secondary": "var(--on-secondary)",
+                        "on-tertiary": "var(--on-tertiary)",
+                        "on-error": "var(--on-error)",
+                        "inverse-primary": "var(--inverse-primary)",
+                        "on-primary-container": "var(--on-primary-container)",
+                        "on-primary": "var(--on-primary)",
+                        "on-tertiary-fixed-variant": "var(--on-tertiary-fixed-variant)",
+                        "on-background": "var(--on-background)",
+                        "secondary": "var(--secondary)",
+                        "surface": "var(--surface)",
+                        "secondary-fixed-dim": "var(--secondary-fixed-dim)",
+                        "tertiary-dim": "var(--tertiary-dim)",
+                        "tertiary-fixed": "var(--tertiary-fixed)",
+                        "on-primary-fixed-variant": "var(--on-primary-fixed-variant)",
+                        "on-tertiary-fixed": "var(--on-tertiary-fixed)",
+                        "on-primary-fixed": "var(--on-primary-fixed)",
+                        "error-dim": "var(--error-dim)",
+                        "inverse-surface": "var(--inverse-surface)",
+                        "on-surface-variant": "var(--on-surface-variant)"
                     },
                     "borderRadius": {
                         "DEFAULT": "0.25rem",
@@ -90,8 +91,8 @@
         }</script>
     <style>
         body {
-            background-color: #0e0e0e;
-            color: #e5e2e1;
+            background-color: var(--background);
+            color: var(--on-background);
             font-family: 'Inter', sans-serif;
         }
 
